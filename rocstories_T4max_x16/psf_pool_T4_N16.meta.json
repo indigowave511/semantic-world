@@ -1,0 +1,31 @@
+{
+ "T": 4,
+ "N": 16,
+ "N_auto": 20,
+ "T_max": 5,
+ "n_sentences_truncated": 2457,
+ "pad_ratio": 0.3876,
+ "vocab_size": 36711,
+ "min_freq": 1,
+ "window_shape": [
+  5,
+  16
+ ],
+ "n_stories_total": 101671,
+ "n_stories_train": 97929,
+ "n_stories_test": 3742,
+ "n_windows": 101671,
+ "n_windows_train": 97929,
+ "n_windows_test": 3742,
+ "unlabeled_test_frac": 0.0,
+ "include_cloze": true,
+ "max_unlabeled": null,
+ "stories_by_source": {
+  "ROCStories__spring2016 - ROCStories_spring2016.csv": 45496,
+  "ROCStories_winter2017 - ROCStories_winter2017.csv": 52433,
+  "cloze_test_val__spring2016 - cloze_test_ALL_val.csv": 1871,
+  "cloze_test_val__winter2018-cloze_test_ALL_val - 1 - 1.csv": 15,
+  "cloze_test_test__spring2016 - cloze_test_ALL_test.csv": 1856
+ },
+ "data_dir": "rocstories"
+}

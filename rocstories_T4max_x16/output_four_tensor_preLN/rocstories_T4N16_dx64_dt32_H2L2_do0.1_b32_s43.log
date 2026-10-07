@@ -1,0 +1,37 @@
+2026-09-21 18:41:00,793 - INFO - ✓ Set seed to 43 with deterministic algorithms enabled
+2026-09-21 18:41:00,793 - INFO - ✓ All random seeds set to 43 for reproducibility
+2026-09-21 18:41:02,217 - INFO - [Run] output_dir : rocstories_T4max_x16/output_four_tensor_preLN
+2026-09-21 18:41:02,217 - INFO - [Run] file tag   : rocstories_T4N16_dx64_dt32_H2L2_do0.1_b32_s43
+2026-09-21 18:41:02,217 - INFO - [Run] logs       : rocstories_T4N16_dx64_dt32_H2L2_do0.1_b32_s43.log  and  /home/indigowave/Desktop/semantic-world/four_tensor_train.log
+2026-09-21 18:41:02,217 - INFO - [Data] dir        : rocstories_T4max_x16
+2026-09-21 18:41:02,217 - INFO - [Data] jsonl      : psf_pool_T4_N16.jsonl
+2026-09-21 18:41:02,217 - INFO - [Data] vocab      : psf_pool_T4_N16.vocab.json
+2026-09-21 18:41:02,217 - INFO - [Data] T=4, N=16, vocab_size=36711, windows=101671
+2026-09-21 18:41:02,217 - INFO - [Data Load] Train 샘플 수 (train+dev): 97929
+2026-09-21 18:41:02,217 - INFO - [Data Load] Validation 샘플 수 (test): 3742
+2026-09-21 18:41:02,694 - INFO - Using 2 GPUs: ['NVIDIA GeForce RTX 3080', 'NVIDIA GeForce RTX 3080']
+2026-09-21 18:41:03,534 - INFO - [Model] FourTensorModel on cuda  gpus=2  params=122,180,480
+2026-09-21 18:41:03,534 - INFO - [Model] d_x=64 d_t=32 n_layers=2 n_heads=2 dropout=0.1 padding_idx=0 batch/gpu=32 loader_batch=64 effective_batch=64
+2026-09-21 18:41:03,534 - INFO - Random seed: 43 (deterministic mode: True)
+2026-09-21 18:41:03,534 - INFO - [Provenance] four_tensor_model.py mtime=2026-09-21T09:33:24.048434+00:00 sha256=6c37c49f3fb4...
+2026-09-21 18:41:03,534 - INFO - [Provenance] machine=indigowave0 user=indigowave torch=2.7.1+cu128
+2026-09-21 18:41:03,534 - INFO - [Repro] driver=580.173.02 cuda_built=12.8 cudnn=90701 gpus=['NVIDIA GeForce RTX 3080', 'NVIDIA GeForce RTX 3080'] tf32_matmul=False cudnn_deterministic=True cublas=:4096:8
+2026-09-21 18:41:03,534 - INFO - [Provenance] git unavailable
+2026-09-21 18:51:22,668 - INFO - NEW BEST VALIDATION LOSS: 1.366580 at epoch 1
+2026-09-21 18:51:23,638 - INFO - Epoch [1/50] Train Loss: 2.1801 | Val Loss: 1.3666 | Val S(T) CE: 5.6245 | Val S(T) token-acc: 0.1595 | n_tok=32173 | gap=-0.8135 | Best Val: 1.3666 @ 1
+2026-09-21 19:01:43,324 - INFO - NEW BEST VALIDATION LOSS: 1.319595 at epoch 2
+2026-09-21 19:01:45,626 - INFO - Epoch [2/50] Train Loss: 1.5689 | Val Loss: 1.3196 | Val S(T) CE: 5.5713 | Val S(T) token-acc: 0.1665 | n_tok=32173 | gap=-0.2493 | Best Val: 1.3196 @ 2
+2026-09-21 19:12:06,167 - INFO - NEW BEST VALIDATION LOSS: 1.314653 at epoch 3
+2026-09-21 19:12:08,573 - INFO - Epoch [3/50] Train Loss: 1.5140 | Val Loss: 1.3147 | Val S(T) CE: 5.5852 | Val S(T) token-acc: 0.1637 | n_tok=32173 | gap=-0.1993 | Best Val: 1.3147 @ 3
+2026-09-21 19:22:28,348 - INFO - NEW BEST VALIDATION LOSS: 1.305448 at epoch 4
+2026-09-21 19:22:30,627 - INFO - Epoch [4/50] Train Loss: 1.4793 | Val Loss: 1.3054 | Val S(T) CE: 5.5620 | Val S(T) token-acc: 0.1681 | n_tok=32173 | gap=-0.1739 | Best Val: 1.3054 @ 4
+2026-09-21 19:32:49,774 - INFO - Epoch [5/50] Train Loss: 1.4525 | Val Loss: 1.3161 | Val S(T) CE: 5.6063 | Val S(T) token-acc: 0.1569 | n_tok=32173 | gap=-0.1364 | Best Val: 1.3054 @ 4
+2026-09-21 19:43:08,964 - INFO - Epoch [6/50] Train Loss: 1.4169 | Val Loss: 1.3324 | Val S(T) CE: 5.6703 | Val S(T) token-acc: 0.1496 | n_tok=32173 | gap=-0.0845 | Best Val: 1.3054 @ 4
+2026-09-21 19:53:27,939 - INFO - Epoch [7/50] Train Loss: 1.3790 | Val Loss: 1.3545 | Val S(T) CE: 5.7580 | Val S(T) token-acc: 0.1458 | n_tok=32173 | gap=-0.0244 | Best Val: 1.3054 @ 4
+2026-09-21 20:03:47,030 - INFO - Epoch [8/50] Train Loss: 1.3304 | Val Loss: 1.3710 | Val S(T) CE: 5.8525 | Val S(T) token-acc: 0.1526 | n_tok=32173 | gap=+0.0406 | Best Val: 1.3054 @ 4
+2026-09-21 20:14:06,035 - INFO - Epoch [9/50] Train Loss: 1.2679 | Val Loss: 1.4082 | Val S(T) CE: 5.9867 | Val S(T) token-acc: 0.1454 | n_tok=32173 | gap=+0.1403 | Best Val: 1.3054 @ 4
+2026-09-21 20:14:06,036 - INFO - VALIDATION MINIMUM REACHED: val_minimum: best 1.305448 at epoch 4, now 1.408201 after 5 epochs
+2026-09-21 20:14:07,039 - INFO - Training finished (val_minimum: best 1.305448 at epoch 4, now 1.408201 after 5 epochs) in 5586.5s
+2026-09-21 20:14:07,039 - INFO - Best Validation Loss: 1.305448 at epoch 4
+2026-09-21 20:14:07,039 - INFO - Metrics JSON: rocstories_T4max_x16/output_four_tensor_preLN/rocstories_T4N16_dx64_dt32_H2L2_do0.1_b32_s43.json
+2026-09-21 20:14:07,039 - INFO - Epoch JSONL:  rocstories_T4max_x16/output_four_tensor_preLN/rocstories_T4N16_dx64_dt32_H2L2_do0.1_b32_s43.jsonl

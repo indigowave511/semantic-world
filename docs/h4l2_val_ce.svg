@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="340" viewBox="0 0 720 340" role="img">
+<rect width="100%" height="100%" fill="#ffffff"/>
+<line x1="56" y1="252.00" x2="336" y2="252.00" stroke="#e6e6e6"/>
+<text x="48" y="256.00" text-anchor="end" font-family="Times New Roman, Times, serif" font-size="13" fill="#222">1.30</text>
+<line x1="56" y1="192.00" x2="336" y2="192.00" stroke="#e6e6e6"/>
+<text x="48" y="196.00" text-anchor="end" font-family="Times New Roman, Times, serif" font-size="13" fill="#222">1.35</text>
+<line x1="56" y1="132.00" x2="336" y2="132.00" stroke="#e6e6e6"/>
+<text x="48" y="136.00" text-anchor="end" font-family="Times New Roman, Times, serif" font-size="13" fill="#222">1.40</text>
+<line x1="56" y1="72.00" x2="336" y2="72.00" stroke="#e6e6e6"/>
+<text x="48" y="76.00" text-anchor="end" font-family="Times New Roman, Times, serif" font-size="13" fill="#222">1.45</text>
+<text x="58.80" y="294" text-anchor="middle" font-family="Times New Roman, Times, serif" font-size="13" fill="#222">1</text>
+<text x="109.20" y="294" text-anchor="middle" font-family="Times New Roman, Times, serif" font-size="13" fill="#222">10</text>
+<text x="165.20" y="294" text-anchor="middle" font-family="Times New Roman, Times, serif" font-size="13" fill="#222">20</text>
+<text x="221.20" y="294" text-anchor="middle" font-family="Times New Roman, Times, serif" font-size="13" fill="#222">30</text>
+<text x="277.20" y="294" text-anchor="middle" font-family="Times New Roman, Times, serif" font-size="13" fill="#222">40</text>
+<text x="333.20" y="294" text-anchor="middle" font-family="Times New Roman, Times, serif" font-size="13" fill="#222">50</text>
+<clipPath id="v4"><rect x="56" y="36" width="280" height="240"/></clipPath>
+<line x1="56" y1="36" x2="56" y2="276" stroke="#222"/>
+<line x1="56" y1="276" x2="336" y2="276" stroke="#222"/>
+<g clip-path="url(#v4)">
+<path d="M58.80,186.01 L64.40,218.25 L70.00,196.67 L75.60,234.06 L81.20,236.13 L86.80,246.36 L92.40,228.75 L98.00,218.94 L103.60,188.94 L109.20,140.85 L114.80,73.33" fill="none" stroke="#222" stroke-width="1.8"/>
+</g>
+<circle cx="86.80" cy="246.36" r="4" fill="#ffffff" stroke="#222" stroke-width="1.6"/>
+<line x1="408" y1="252.00" x2="688" y2="252.00" stroke="#e6e6e6"/>
+<text x="400" y="256.00" text-anchor="end" font-family="Times New Roman, Times, serif" font-size="13" fill="#222">6</text>
+<line x1="408" y1="156.00" x2="688" y2="156.00" stroke="#e6e6e6"/>
+<text x="400" y="160.00" text-anchor="end" font-family="Times New Roman, Times, serif" font-size="13" fill="#222">10</text>
+<line x1="408" y1="60.00" x2="688" y2="60.00" stroke="#e6e6e6"/>
+<text x="400" y="64.00" text-anchor="end" font-family="Times New Roman, Times, serif" font-size="13" fill="#222">14</text>
+<text x="410.80" y="294" text-anchor="middle" font-family="Times New Roman, Times, serif" font-size="13" fill="#222">1</text>
+<text x="461.20" y="294" text-anchor="middle" font-family="Times New Roman, Times, serif" font-size="13" fill="#222">10</text>
+<text x="517.20" y="294" text-anchor="middle" font-family="Times New Roman, Times, serif" font-size="13" fill="#222">20</text>
+<text x="573.20" y="294" text-anchor="middle" font-family="Times New Roman, Times, serif" font-size="13" fill="#222">30</text>
+<text x="629.20" y="294" text-anchor="middle" font-family="Times New Roman, Times, serif" font-size="13" fill="#222">40</text>
+<text x="685.20" y="294" text-anchor="middle" font-family="Times New Roman, Times, serif" font-size="13" fill="#222">50</text>
+<clipPath id="var"><rect x="408" y="36" width="280" height="240"/></clipPath>
+<line x1="408" y1="36" x2="408" y2="276" stroke="#222"/>
+<line x1="408" y1="276" x2="688" y2="276" stroke="#222"/>
+<g clip-path="url(#var)">
+<path d="M410.80,61.21 L416.40,227.29 L422.00,246.07 L427.60,250.57 L433.20,251.84 L438.80,251.03 L444.40,253.87 L450.00,254.04 L455.60,254.02 L461.20,257.82 L466.80,255.85 L472.40,257.85 L478.00,258.54 L483.60,258.07 L489.20,259.46 L494.80,261.60 L500.40,261.67 L506.00,261.29 L511.60,262.68 L517.20,263.45 L522.80,261.94 L528.40,262.86 L534.00,264.27 L539.60,265.36 L545.20,265.17 L550.80,265.54 L556.40,265.28 L562.00,265.22 L567.60,265.39 L573.20,266.37 L578.80,266.86 L584.40,267.13 L590.00,266.77 L595.60,265.45 L601.20,267.49 L606.80,266.83 L612.40,267.34 L618.00,267.64 L623.60,267.06 L629.20,266.66 L634.80,267.96 L640.40,268.18 L646.00,267.55 L651.60,267.95 L657.20,268.55 L662.80,267.54 L668.40,266.98 L674.00,268.08 L679.60,267.09 L685.20,267.91" fill="none" stroke="#222" stroke-width="1.6" stroke-dasharray="6 3.5"/>
+</g>
+<circle cx="657.20" cy="268.55" r="4" fill="#ffffff" stroke="#222" stroke-width="1.6"/>
+<text x="196" y="22" text-anchor="middle" font-family="Times New Roman, Times, serif" font-size="14" fill="#222">4-tensor</text>
+<text x="548" y="22" text-anchor="middle" font-family="Times New Roman, Times, serif" font-size="14" fill="#222">baseline</text>
+<text x="360" y="328" text-anchor="middle" font-family="Times New Roman, Times, serif" font-size="14" fill="#222">epoch</text>
+</svg>

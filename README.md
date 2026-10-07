@@ -151,6 +151,18 @@ ROCStories, $T = 4$, $N = 16$, $d_x = 64$, $d_t = 32$. Validation split of 3,742
 
 $\Delta = \mathcal{L}^{\mathrm{AR}}_{S(4)} - \mathcal{L}^{\mathrm{4T}}_{S(4)}$; positive means the 4-tensor model is lower. A uniform guess over the 36,711-token vocabulary scores $\ln 36711 \approx 10.51$.
 
+**Heads.** The two models use $H$ differently. The 4-tensor model adds full-size heads; the baseline splits $d$ across its heads.
+
+| | 4-tensor | Baseline |
+|---|---|---|
+| Width of each head | full $(d_x, d_t)$ fiber, $d_x d_t$ | $d / H$ |
+| Head merge | sum, no output projection | concatenation, then $W^O$ |
+| Attention parameters per layer | $3Hd^2$ | $4d^2$ |
+| MLP parameters per layer | $8d^2$ | $8d^2$ |
+| Token table and readout | $\lvert V\rvert\,(d_x + 2d_t)$ | $(\lvert V\rvert + 2)\,d$, tied |
+
+Biases and LayerNorm are omitted. With $d = 2048$, raising $H$ from 2 to 4 adds $6d^2 \approx 25.2$M parameters per layer to the 4-tensor model and none to the baseline, which is why the baseline count is the same in the first two rows of the results table. At $H = 4$, $L = 2$ the totals are close, but they are spent differently: the 4-tensor model puts 100.7M into attention and 4.7M into its token table, the baseline 33.6M and 75.2M.
+
 ![Validation S(4) cross-entropy for H=4, L=2, seed 43. Solid: 4-tensor. Dashed: free-running baseline. Open circles: reported checkpoints.](docs/h4l2_s4_ce.svg)
 
 ![Training cross-entropy for H=4, L=2, seed 43, on separate axes. Left: 4-tensor. Right: baseline. Open circles: reported checkpoints.](docs/h4l2_train_ce.svg)

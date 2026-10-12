@@ -2,6 +2,8 @@
 
 **4-tensor attention for predicting the next semantic state of a scene.**
 
+[![Paper](https://img.shields.io/badge/arXiv-2610.11716-b31b1b.svg)](https://arxiv.org/abs/2610.11716)
+
 This repository contains the model, the training code, and the comparison baseline for the paper *4-Tensor Attention Model for Semantic Physical Reality* (Jongwook Kim, Sangheon Yun).
 
 ---
@@ -37,12 +39,55 @@ flowchart LR
 
 A window of $T$ states, each padded to $N$ tokens, is a grid with time running down and token position running across:
 
-```
-           x = 0       1          2         3        ...
-  t = 0    [I]        [am]       [in]      [front]   ...
-  t = 1    [I]        [am]       [looking] [at]      ...
-  t = 2    [The]      [elevator] [arrives] [at]      ...
-```
+| | $x=0$ | $1$ | $2$ | $3$ | $4$ | $5$ | $6$ | $7$ |
+|---|---|---|---|---|---|---|---|---|
+| $t=0$ | [I] | [am] | [in] | [front] | [of] | [the] | [elevator] | [0] |
+| $t=1$ | [I] | [am] | [looking] | [at] | [the] | [floor] | [indicator] | [0] |
+| $t=2$ | [The] | [elevator] | [arrives] | [at] | [my] | [floor] | [0] | [0] |
+
+The running example in this section uses $T=3$ and $N=8$. The experiments use $T=4$ and $N=16$.
+
+The grid above is the input window
+
+$$
+X(2) \leftarrow \{ S(0), S(1), S(2) \}.
+$$
+
+The training target is that window shifted by one sentence,
+
+$$
+X(3) \leftarrow \{ S(1), S(2), S(3) \},
+$$
+
+$S(1)$ and $S(2)$ repeat the rows $t=1$ and $t=2$ of the grid above. **$S(3)$** is the sentence absent from the input:
+
+| | $x=0$ | $1$ | $2$ | $3$ | $4$ | $5$ | $6$ | $7$ |
+|---|---|---|---|---|---|---|---|---|
+| $t=1$ | [I] | [am] | [looking] | [at] | [the] | [floor] | [indicator] | [0] |
+| $t=2$ | [The] | [elevator] | [arrives] | [at] | [my] | [floor] | [0] | [0] |
+| **$t=3$** | **[The]** | **[elevator]** | **[doors]** | **[open]** | **[in]** | **[front]** | **[of]** | **[me]** |
+
+$S(1)$ and $S(2)$ are the overlap of $X(2)$ and $X(3)$.
+
+<table cellpadding="8" cellspacing="0" style="border-collapse: collapse;">
+  <tr>
+    <th style="border: 1px solid #d0d7de;"></th>
+    <th align="left" style="border: 1px solid #d0d7de;">Training set</th>
+    <th align="left" style="border: 1px solid #d0d7de;">Validation set</th>
+  </tr>
+  <tr>
+    <td style="border: 1px solid #d0d7de;">4-tensor</td>
+    <td style="border: 1px solid #d0d7de;"><em>W<sup>Q</sup></em>, <em>W<sup>K</sup></em>, <em>W<sup>V</sup></em>, and the other parameters are updated from that overlap, <em>S</em>(1) and <em>S</em>(2)</td>
+    <td style="border: 1px solid #d0d7de;">Predicts <em>S</em>(3) in one parallel pass</td>
+  </tr>
+  <tr>
+    <td style="border: 1px solid #d0d7de;">Baseline</td>
+    <td style="border: 1px solid #d0d7de;">Updated from the whole of <em>X</em>(2): the non-padding tokens of <em>S</em>(0), <em>S</em>(1), <em>S</em>(2) concatenated, under a causal mask</td>
+    <td style="border: 1px solid #d0d7de;">Free-running autoregressive prediction</td>
+  </tr>
+</table>
+
+The grid and the table are the paper's running example. The paper uses $T=3$ so the shift is short enough to write out: the input sentences are $0$, $1$, and $2$, and the sentence to predict is $3$. The ROCStories validation experiment uses $T=4$. The model reads sentences $0$, $1$, $2$, and $3$, and the sentence it is scored on is $4$. That is the same shift with one more sentence in the window. The input is $X(3) \leftarrow \{S(0), S(1), S(2), S(3)\}$ and the target is $X(4) \leftarrow \{S(1), S(2), S(3), S(4)\}$. The overlap that updates the 4-tensor parameters is then $S(1)$, $S(2)$, and $S(3)$. The baseline is trained on the causal-masked non-padding concatenation of the whole input, $S(0)$ through $S(3)$. On the validation set the 4-tensor predicts $S(4)$ in one parallel pass, and the baseline free-runs. $S(4)$ is the sentence absent from the input.
 
 In a standard transformer each token is a **vector** of width $d$. Here each cell of the grid holds a **matrix** of shape $d_x \times d_t$: one axis is the *semantic fiber* ($d_x$), the other the *temporal-context fiber* ($d_t$). The whole window is therefore a rank-4 tensor
 
@@ -165,11 +210,13 @@ Biases and LayerNorm are omitted. With $d = 2048$, raising $H$ from 2 to 4 adds 
 
 ![Validation S(4) cross-entropy for H=4, L=2, seed 43. Solid: 4-tensor. Dashed: free-running baseline. Open circles: reported checkpoints.](docs/h4l2_s4_ce.svg)
 
-![Training cross-entropy for H=4, L=2, seed 43, on separate axes. Left: 4-tensor. Right: baseline. Open circles: reported checkpoints.](docs/h4l2_train_ce.svg)
+This curve is the cross-entropy of $S(4)$ divided by the number of non-padding tokens. That mean is the quantity used for a fair comparison of the two models.
 
-![Validation cross-entropy of the same mean, for H=4, L=2, seed 43, on separate axes. Left: 4-tensor. Right: baseline. Open circles: reported checkpoints.](docs/h4l2_val_ce.svg)
+![Training cross-entropy for H=4, L=2, seed 43, on separate axes. Left: 4-tensor. The input is X(3) = {S(0), S(1), S(2), S(3)} and the loss is the mean cross-entropy of X(4) = {S(1), S(2), S(3), S(4)}. Right: baseline. Open circles: reported checkpoints.](docs/h4l2_train_ce.svg)
 
-The figures are the closest parameter match, $H = 4$, $L = 2$, seed 43. Open circles are the checkpoints in the table. The first figure is the validation cross-entropy of $S(4)$: the solid curve is the 4-tensor model and the dashed curve is the baseline. Epoch 1 of the baseline there is $14.99$ and lies above the plotted range. The second figure is the training cross-entropy, the mean each optimizer steps on, with its own axis for each model. The 4-tensor loss averages every target sentence, so it falls from $2.178$ at epoch 1 to $1.435$ at the marked checkpoint while $S(4)$ stays near $5.55$. The baseline loss is on $S(4)$ only. Its epoch 1 is $32.52$ and lies above the plotted range; epoch 2 is $14.58$. The third figure is the same mean on the validation split. For this pair the 4-tensor validation loss reaches $1.305$ at the marked checkpoint and is higher afterward. The baseline validation loss at that checkpoint is $5.310$, and epoch 1 of that curve is $13.95$, inside the plotted range. The horizontal axis is the epoch index, not wall-clock time: this pair took $2.4$ hours and $45.2$ hours. Most of that gap is the training procedure, one sequential forward pass per target token. Over every logged epoch of this pair, the lowest baseline content cross-entropy is $5.694$ at epoch 50, above the 4-tensor minimum $5.554$. The table's $5.701$ is the checkpoint chosen with `[EOS]` included in the baseline loss.
+![Validation cross-entropy for H=4, L=2, seed 43, on separate axes. Left: 4-tensor on the validation split, with the same windows: input X(3) = {S(0), S(1), S(2), S(3)}, loss the mean cross-entropy of X(4) = {S(1), S(2), S(3), S(4)}. Right: baseline. Open circles: reported checkpoints.](docs/h4l2_val_ce.svg)
+
+The figures are the closest parameter match, $H = 4$, $L = 2$, seed 43. Open circles are the checkpoints in the table. The first figure is the validation cross-entropy of $S(4)$: the solid curve is the 4-tensor model and the dashed curve is the baseline. Epoch 1 of the baseline there is $14.99$ and lies above the plotted range. The second figure is the training cross-entropy, with its own axis for each model. On the 4-tensor side the input is $X(3) \leftarrow \{S(0), S(1), S(2), S(3)\}$ and the loss is the mean cross-entropy of $X(4) \leftarrow \{S(1), S(2), S(3), S(4)\}$. That loss falls from $2.178$ at epoch 1 to $1.435$ at the marked checkpoint, while $S(4)$ stays near $5.55$. The baseline loss is on $S(4)$ only. Its epoch 1 is $32.52$ and lies above the plotted range; epoch 2 is $14.58$. The third figure evaluates that same pair of windows on the validation split, input $X(3)$ and target $X(4)$. For this pair the 4-tensor validation loss reaches $1.305$ at the marked checkpoint and is higher afterward. The baseline validation loss at that checkpoint is $5.310$, and epoch 1 of that curve is $13.95$, inside the plotted range. The horizontal axis is the epoch index, not wall-clock time: this pair took $2.4$ hours and $45.2$ hours. Most of that gap is the training procedure, one sequential forward pass per target token. Over every logged epoch of this pair, the lowest baseline content cross-entropy is $5.694$ at epoch 50, above the 4-tensor minimum $5.554$. The table's $5.701$ is the checkpoint chosen with `[EOS]` included in the baseline loss.
 
 Caveats: the checkpoint is selected on the same validation split that is reported, and each setting has a single seed.
 
@@ -261,18 +308,22 @@ The two fibers are kept as distinct tensor factors at the input and the readout,
 
 ```bibtex
 @misc{kim2026semanticworld,
-  title  = {4-Tensor Attention Model for Semantic Physical Reality},
-  author = {Kim, Jongwook and Yun, Sangheon},
-  year   = {2026}
+  title         = {4-Tensor Attention Model for Semantic Physical Reality},
+  author        = {Kim, Jongwook and Yun, Sangheon},
+  year          = {2026},
+  eprint        = {2610.11716},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.LG},
+  url           = {https://arxiv.org/abs/2610.11716}
 }
 ```
 
 ## License and Patent Notice
 
-**Patent pending.** A Korean patent application covering the methods in this repository has been filed (KR 10-2026-0191535, filed 2026-10-06). The applicant is IndigoWave Inc.
+**Patent pending.** The methods in this repository are the subject of a pending Korean patent application (Application No. 10-2026-0191535, filed 2026-10-06) by IndigoWave Inc.
 
-**All rights reserved.** No license is granted at this time. Without a license, you may view the code, but you may not copy, modify, or redistribute it. No patent license is granted, expressly or by implication, by making this repository available.
+**All rights reserved.** No license is granted at this time. You may view the code, but you may not copy, modify, or redistribute it without permission. No patent license is granted, expressly or by implication, by making this repository available.
 
-A license will be announced when the accompanying paper is posted on arXiv. Until then, please contact us for research collaboration or permission requests.
+Researchers interested in using these methods are welcome to contact us for research collaboration or permission requests.
 
 Contact: <indigowave511@gmail.com>

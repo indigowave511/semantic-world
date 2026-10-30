@@ -1,0 +1,97 @@
+2026-10-19 16:38:27,070 - INFO - ✓ Set seed to 43 with deterministic algorithms enabled
+2026-10-19 16:38:27,071 - INFO - ✓ All random seeds set to 43 for reproducibility
+2026-10-19 16:38:29,394 - INFO - [Run] output_dir : rocstories_T4max_x16/output_baseline_ar_attention_rollout
+2026-10-19 16:38:29,394 - INFO - [Run] file tag   : rocstories_rollout_T3N16_dx64_dt32_H2L2_do0.1_b32_s43
+2026-10-19 16:38:29,394 - INFO - [Run] logs       : rocstories_rollout_T3N16_dx64_dt32_H2L2_do0.1_b32_s43.log  and  /home/indigowave/Desktop/semantic-world1002/baseline_ar_attention_train_rollout.log
+2026-10-19 16:38:29,394 - INFO - [Data] dir        : rocstories_T4max_x16
+2026-10-19 16:38:29,394 - INFO - [Data] jsonl      : psf_pool_T4_N16.jsonl
+2026-10-19 16:38:29,394 - INFO - [Data] vocab      : psf_pool_T4_N16.vocab.json
+2026-10-19 16:38:29,394 - INFO - [Data] T=3 (fixed), pool_meta_T=4, N=16, vocab_size=36711, windows=101671
+2026-10-19 16:38:29,394 - INFO - [Data Load] Train 샘플 수 (train+dev): 97929
+2026-10-19 16:38:29,395 - INFO - [Data Load] Validation 샘플 수 (test): 3742
+2026-10-19 16:38:30,865 - INFO - Using 2 GPUs: ['NVIDIA GeForce RTX 3080', 'NVIDIA GeForce RTX 3080']
+2026-10-19 16:38:31,851 - INFO - [Model] BaselineARRolloutModel T=3 on cuda  gpus=2  params=175,892,480
+2026-10-19 16:38:31,852 - INFO - [Model] d=2048 (d_x=64 d_t=32) n_layers=2 n_heads=2 dropout=0.1 padding_idx=0 bos=36711 eos=36712 vocab_ext=36713 train=AR-fair-S3 batch/gpu=32 loader_batch=64 effective_batch=64
+2026-10-19 16:38:31,852 - INFO - [Data] each record is S(0)..S(4). Train loss: context S(0),S(1),S(2), target S(3)+[EOS]. Val rollout: hat S(3) from gold S(0)..S(2), then hat S(4) from S(1),S(2),hat S(3).
+2026-10-19 16:38:31,852 - INFO - Random seed: 43 (deterministic mode: True)
+2026-10-19 16:38:31,852 - INFO - [Provenance] baseline_ar_attention_model_rollout.py mtime=2026-10-14T10:19:04+00:00 sha256=ae621ca717c7...
+2026-10-19 16:38:31,852 - INFO - [Provenance] machine=indigowave user=indigowave torch=2.7.1+cu128
+2026-10-19 16:38:31,852 - INFO - [Repro] driver=570.211.01 cuda_built=12.8 cudnn=90701 gpus=['NVIDIA GeForce RTX 3080', 'NVIDIA GeForce RTX 3080'] tf32_matmul=False cudnn_deterministic=True cublas=:4096:8
+2026-10-19 16:38:31,852 - INFO - [Provenance] git unavailable
+2026-10-19 17:28:38,518 - INFO - NEW BEST VALIDATION FAIR LOSS: 15.591422 at epoch 1
+2026-10-19 17:28:45,414 - INFO - Epoch [1/50] Train AR: 32.2965 | Val AR: 15.5914 | Val S(3) CE: 17.0680 acc: 0.0225 | Val S(4) CE: 20.0247 acc: 0.0086 | n_tok=37582/32173 | gap=-16.7051 | Best AR: 15.5914 @ 1
+2026-10-19 18:18:50,896 - INFO - NEW BEST VALIDATION FAIR LOSS: 8.530696 at epoch 2
+2026-10-19 18:18:57,776 - INFO - Epoch [2/50] Train AR: 16.4280 | Val AR: 8.5307 | Val S(3) CE: 7.8581 acc: 0.0880 | Val S(4) CE: 8.1323 acc: 0.1060 | n_tok=37582/32173 | gap=-7.8973 | Best AR: 8.5307 @ 2
+2026-10-19 19:08:45,239 - INFO - NEW BEST VALIDATION FAIR LOSS: 6.509774 at epoch 3
+2026-10-19 19:08:52,053 - INFO - Epoch [3/50] Train AR: 7.3239 | Val AR: 6.5098 | Val S(3) CE: 6.9586 acc: 0.0303 | Val S(4) CE: 7.3785 acc: 0.0199 | n_tok=37582/32173 | gap=-0.8141 | Best AR: 6.5098 @ 3
+2026-10-19 19:58:49,020 - INFO - NEW BEST VALIDATION FAIR LOSS: 6.154230 at epoch 4
+2026-10-19 19:58:55,857 - INFO - Epoch [4/50] Train AR: 6.4384 | Val AR: 6.1542 | Val S(3) CE: 6.5387 acc: 0.0841 | Val S(4) CE: 6.8861 acc: 0.0841 | n_tok=37582/32173 | gap=-0.2842 | Best AR: 6.1542 @ 4
+2026-10-19 20:47:13,492 - INFO - NEW BEST VALIDATION FAIR LOSS: 6.034465 at epoch 5
+2026-10-19 20:47:20,308 - INFO - Epoch [5/50] Train AR: 6.1816 | Val AR: 6.0345 | Val S(3) CE: 6.4459 acc: 0.0136 | Val S(4) CE: 6.7594 acc: 0.0106 | n_tok=37582/32173 | gap=-0.1472 | Best AR: 6.0345 @ 5
+2026-10-19 21:36:13,653 - INFO - Epoch [6/50] Train AR: 6.0685 | Val AR: 6.0403 | Val S(3) CE: 6.3263 acc: 0.1037 | Val S(4) CE: 6.6049 acc: 0.1139 | n_tok=37582/32173 | gap=-0.0282 | Best AR: 6.0345 @ 5
+2026-10-19 22:25:05,232 - INFO - NEW BEST VALIDATION FAIR LOSS: 5.929053 at epoch 7
+2026-10-19 22:25:12,033 - INFO - Epoch [7/50] Train AR: 5.9858 | Val AR: 5.9291 | Val S(3) CE: 6.3117 acc: 0.0241 | Val S(4) CE: 6.6237 acc: 0.0166 | n_tok=37582/32173 | gap=-0.0568 | Best AR: 5.9291 @ 7
+2026-10-19 23:14:13,081 - INFO - Epoch [8/50] Train AR: 5.9439 | Val AR: 6.0486 | Val S(3) CE: 6.3907 acc: 0.0207 | Val S(4) CE: 6.6476 acc: 0.0129 | n_tok=37582/32173 | gap=+0.1048 | Best AR: 5.9291 @ 7
+2026-10-20 00:03:10,095 - INFO - NEW BEST VALIDATION FAIR LOSS: 5.913422 at epoch 9
+2026-10-20 00:03:16,878 - INFO - Epoch [9/50] Train AR: 5.9089 | Val AR: 5.9134 | Val S(3) CE: 6.2265 acc: 0.0928 | Val S(4) CE: 6.5228 acc: 0.0850 | n_tok=37582/32173 | gap=+0.0046 | Best AR: 5.9134 @ 9
+2026-10-20 00:52:08,583 - INFO - NEW BEST VALIDATION FAIR LOSS: 5.898681 at epoch 10
+2026-10-20 00:52:15,406 - INFO - Epoch [10/50] Train AR: 5.8774 | Val AR: 5.8987 | Val S(3) CE: 6.2786 acc: 0.0473 | Val S(4) CE: 6.4673 acc: 0.0493 | n_tok=37582/32173 | gap=+0.0213 | Best AR: 5.8987 @ 10
+2026-10-20 01:40:39,545 - INFO - Epoch [11/50] Train AR: 5.8374 | Val AR: 5.9454 | Val S(3) CE: 6.3995 acc: 0.0150 | Val S(4) CE: 6.5110 acc: 0.0193 | n_tok=37582/32173 | gap=+0.1081 | Best AR: 5.8987 @ 10
+2026-10-20 02:29:05,134 - INFO - NEW BEST VALIDATION FAIR LOSS: 5.757526 at epoch 12
+2026-10-20 02:29:11,948 - INFO - Epoch [12/50] Train AR: 5.7716 | Val AR: 5.7575 | Val S(3) CE: 6.1816 acc: 0.0409 | Val S(4) CE: 6.6264 acc: 0.0177 | n_tok=37582/32173 | gap=-0.0141 | Best AR: 5.7575 @ 12
+2026-10-20 03:18:08,604 - INFO - NEW BEST VALIDATION FAIR LOSS: 5.735148 at epoch 13
+2026-10-20 03:18:15,482 - INFO - Epoch [13/50] Train AR: 5.7508 | Val AR: 5.7351 | Val S(3) CE: 6.1156 acc: 0.0590 | Val S(4) CE: 6.5629 acc: 0.0173 | n_tok=37582/32173 | gap=-0.0157 | Best AR: 5.7351 @ 13
+2026-10-20 04:07:05,690 - INFO - NEW BEST VALIDATION FAIR LOSS: 5.693212 at epoch 14
+2026-10-20 04:07:12,541 - INFO - Epoch [14/50] Train AR: 5.7222 | Val AR: 5.6932 | Val S(3) CE: 6.0896 acc: 0.0687 | Val S(4) CE: 6.7304 acc: 0.0141 | n_tok=37582/32173 | gap=-0.0290 | Best AR: 5.6932 @ 14
+2026-10-20 04:56:28,111 - INFO - Epoch [15/50] Train AR: 5.6879 | Val AR: 5.8009 | Val S(3) CE: 6.1461 acc: 0.0685 | Val S(4) CE: 6.6987 acc: 0.0266 | n_tok=37582/32173 | gap=+0.1129 | Best AR: 5.6932 @ 14
+2026-10-20 05:45:49,896 - INFO - Epoch [16/50] Train AR: 5.6591 | Val AR: 5.8363 | Val S(3) CE: 6.3128 acc: 0.0346 | Val S(4) CE: 6.9193 acc: 0.0068 | n_tok=37582/32173 | gap=+0.1772 | Best AR: 5.6932 @ 14
+2026-10-20 06:35:48,890 - INFO - Epoch [17/50] Train AR: 5.6394 | Val AR: 5.7951 | Val S(3) CE: 6.0974 acc: 0.0866 | Val S(4) CE: 6.7445 acc: 0.0233 | n_tok=37582/32173 | gap=+0.1557 | Best AR: 5.6932 @ 14
+2026-10-20 07:25:35,173 - INFO - NEW BEST VALIDATION FAIR LOSS: 5.648444 at epoch 18
+2026-10-20 07:25:42,003 - INFO - Epoch [18/50] Train AR: 5.6283 | Val AR: 5.6484 | Val S(3) CE: 6.0449 acc: 0.0562 | Val S(4) CE: 6.6580 acc: 0.0106 | n_tok=37582/32173 | gap=+0.0201 | Best AR: 5.6484 @ 18
+2026-10-20 08:15:11,315 - INFO - NEW BEST VALIDATION FAIR LOSS: 5.646155 at epoch 19
+2026-10-20 08:15:18,126 - INFO - Epoch [19/50] Train AR: 5.5986 | Val AR: 5.6462 | Val S(3) CE: 6.0631 acc: 0.0657 | Val S(4) CE: 6.7660 acc: 0.0068 | n_tok=37582/32173 | gap=+0.0475 | Best AR: 5.6462 @ 19
+2026-10-20 09:04:31,219 - INFO - NEW BEST VALIDATION FAIR LOSS: 5.622061 at epoch 20
+2026-10-20 09:04:38,031 - INFO - Epoch [20/50] Train AR: 5.5746 | Val AR: 5.6221 | Val S(3) CE: 6.0572 acc: 0.0540 | Val S(4) CE: 6.7503 acc: 0.0091 | n_tok=37582/32173 | gap=+0.0475 | Best AR: 5.6221 @ 20
+2026-10-20 09:54:39,032 - INFO - Epoch [21/50] Train AR: 5.5727 | Val AR: 5.6358 | Val S(3) CE: 6.0000 acc: 0.0775 | Val S(4) CE: 6.8696 acc: 0.0069 | n_tok=37582/32173 | gap=+0.0631 | Best AR: 5.6221 @ 20
+2026-10-20 10:44:14,035 - INFO - NEW BEST VALIDATION FAIR LOSS: 5.598214 at epoch 22
+2026-10-20 10:44:20,955 - INFO - Epoch [22/50] Train AR: 5.5535 | Val AR: 5.5982 | Val S(3) CE: 6.0073 acc: 0.0665 | Val S(4) CE: 6.8613 acc: 0.0041 | n_tok=37582/32173 | gap=+0.0447 | Best AR: 5.5982 @ 22
+2026-10-20 11:34:05,928 - INFO - NEW BEST VALIDATION FAIR LOSS: 5.596755 at epoch 23
+2026-10-20 11:34:12,767 - INFO - Epoch [23/50] Train AR: 5.5399 | Val AR: 5.5968 | Val S(3) CE: 5.9925 acc: 0.0695 | Val S(4) CE: 6.7980 acc: 0.0098 | n_tok=37582/32173 | gap=+0.0568 | Best AR: 5.5968 @ 23
+2026-10-20 12:23:54,596 - INFO - NEW BEST VALIDATION FAIR LOSS: 5.584037 at epoch 24
+2026-10-20 12:24:01,423 - INFO - Epoch [24/50] Train AR: 5.5233 | Val AR: 5.5840 | Val S(3) CE: 5.9495 acc: 0.1067 | Val S(4) CE: 7.0882 acc: 0.0038 | n_tok=37582/32173 | gap=+0.0608 | Best AR: 5.5840 @ 24
+2026-10-20 13:13:45,012 - INFO - Epoch [25/50] Train AR: 5.5167 | Val AR: 5.5900 | Val S(3) CE: 5.9868 acc: 0.0820 | Val S(4) CE: 6.9263 acc: 0.0100 | n_tok=37582/32173 | gap=+0.0733 | Best AR: 5.5840 @ 24
+2026-10-20 14:03:22,104 - INFO - NEW BEST VALIDATION FAIR LOSS: 5.583335 at epoch 26
+2026-10-20 14:03:28,903 - INFO - Epoch [26/50] Train AR: 5.5047 | Val AR: 5.5833 | Val S(3) CE: 5.9715 acc: 0.0957 | Val S(4) CE: 7.1684 acc: 0.0011 | n_tok=37582/32173 | gap=+0.0786 | Best AR: 5.5833 @ 26
+2026-10-20 14:53:02,548 - INFO - Epoch [27/50] Train AR: 5.4968 | Val AR: 5.5841 | Val S(3) CE: 5.9835 acc: 0.0798 | Val S(4) CE: 6.9813 acc: 0.0043 | n_tok=37582/32173 | gap=+0.0873 | Best AR: 5.5833 @ 26
+2026-10-20 15:42:47,832 - INFO - Epoch [28/50] Train AR: 5.4869 | Val AR: 5.5834 | Val S(3) CE: 5.9561 acc: 0.1098 | Val S(4) CE: 7.4059 acc: 0.0023 | n_tok=37582/32173 | gap=+0.0965 | Best AR: 5.5833 @ 26
+2026-10-20 16:32:31,209 - INFO - NEW BEST VALIDATION FAIR LOSS: 5.578658 at epoch 29
+2026-10-20 16:32:38,015 - INFO - Epoch [29/50] Train AR: 5.4751 | Val AR: 5.5787 | Val S(3) CE: 5.9807 acc: 0.0724 | Val S(4) CE: 7.0661 acc: 0.0042 | n_tok=37582/32173 | gap=+0.1035 | Best AR: 5.5787 @ 29
+2026-10-20 17:22:35,407 - INFO - Epoch [30/50] Train AR: 5.4656 | Val AR: 5.6070 | Val S(3) CE: 5.9743 acc: 0.0832 | Val S(4) CE: 7.0547 acc: 0.0084 | n_tok=37582/32173 | gap=+0.1414 | Best AR: 5.5787 @ 29
+2026-10-20 18:11:42,867 - INFO - NEW BEST VALIDATION FAIR LOSS: 5.559529 at epoch 31
+2026-10-20 18:11:49,650 - INFO - Epoch [31/50] Train AR: 5.4487 | Val AR: 5.5595 | Val S(3) CE: 5.9911 acc: 0.0583 | Val S(4) CE: 6.9615 acc: 0.0046 | n_tok=37582/32173 | gap=+0.1108 | Best AR: 5.5595 @ 31
+2026-10-20 19:01:24,144 - INFO - Epoch [32/50] Train AR: 5.4385 | Val AR: 5.5725 | Val S(3) CE: 5.9291 acc: 0.1176 | Val S(4) CE: 7.3838 acc: 0.0028 | n_tok=37582/32173 | gap=+0.1340 | Best AR: 5.5595 @ 31
+2026-10-20 19:50:54,827 - INFO - Epoch [33/50] Train AR: 5.4330 | Val AR: 5.5679 | Val S(3) CE: 5.9800 acc: 0.0659 | Val S(4) CE: 7.0270 acc: 0.0031 | n_tok=37582/32173 | gap=+0.1349 | Best AR: 5.5595 @ 31
+2026-10-20 20:40:11,658 - INFO - NEW BEST VALIDATION FAIR LOSS: 5.550485 at epoch 34
+2026-10-20 20:40:18,448 - INFO - Epoch [34/50] Train AR: 5.4194 | Val AR: 5.5505 | Val S(3) CE: 5.9629 acc: 0.0643 | Val S(4) CE: 7.0320 acc: 0.0048 | n_tok=37582/32173 | gap=+0.1311 | Best AR: 5.5505 @ 34
+2026-10-20 21:29:48,298 - INFO - NEW BEST VALIDATION FAIR LOSS: 5.534045 at epoch 35
+2026-10-20 21:29:55,124 - INFO - Epoch [35/50] Train AR: 5.4074 | Val AR: 5.5340 | Val S(3) CE: 5.9061 acc: 0.0956 | Val S(4) CE: 7.1605 acc: 0.0030 | n_tok=37582/32173 | gap=+0.1267 | Best AR: 5.5340 @ 35
+2026-10-20 22:19:27,875 - INFO - NEW BEST VALIDATION FAIR LOSS: 5.525331 at epoch 36
+2026-10-20 22:19:34,708 - INFO - Epoch [36/50] Train AR: 5.3965 | Val AR: 5.5253 | Val S(3) CE: 5.9165 acc: 0.0856 | Val S(4) CE: 7.1818 acc: 0.0030 | n_tok=37582/32173 | gap=+0.1288 | Best AR: 5.5253 @ 36
+2026-10-20 23:09:12,206 - INFO - Epoch [37/50] Train AR: 5.3849 | Val AR: 5.5295 | Val S(3) CE: 5.9023 acc: 0.0896 | Val S(4) CE: 7.0750 acc: 0.0025 | n_tok=37582/32173 | gap=+0.1446 | Best AR: 5.5253 @ 36
+2026-10-20 23:58:40,013 - INFO - Epoch [38/50] Train AR: 5.3781 | Val AR: 5.5854 | Val S(3) CE: 6.0159 acc: 0.0656 | Val S(4) CE: 7.2331 acc: 0.0044 | n_tok=37582/32173 | gap=+0.2073 | Best AR: 5.5253 @ 36
+2026-10-21 00:47:54,535 - INFO - Epoch [39/50] Train AR: 5.3635 | Val AR: 5.5590 | Val S(3) CE: 5.9789 acc: 0.0748 | Val S(4) CE: 7.2417 acc: 0.0043 | n_tok=37582/32173 | gap=+0.1955 | Best AR: 5.5253 @ 36
+2026-10-21 01:37:27,015 - INFO - Epoch [40/50] Train AR: 5.3491 | Val AR: 5.5351 | Val S(3) CE: 5.9206 acc: 0.0938 | Val S(4) CE: 7.2789 acc: 0.0024 | n_tok=37582/32173 | gap=+0.1860 | Best AR: 5.5253 @ 36
+2026-10-21 02:26:51,719 - INFO - Epoch [41/50] Train AR: 5.3340 | Val AR: 5.5507 | Val S(3) CE: 5.9610 acc: 0.0764 | Val S(4) CE: 7.2923 acc: 0.0054 | n_tok=37582/32173 | gap=+0.2167 | Best AR: 5.5253 @ 36
+2026-10-21 03:16:17,293 - INFO - Epoch [42/50] Train AR: 5.3186 | Val AR: 5.5413 | Val S(3) CE: 5.9255 acc: 0.0918 | Val S(4) CE: 7.4424 acc: 0.0032 | n_tok=37582/32173 | gap=+0.2227 | Best AR: 5.5253 @ 36
+2026-10-21 04:05:56,517 - INFO - Epoch [43/50] Train AR: 5.3079 | Val AR: 5.5531 | Val S(3) CE: 5.9257 acc: 0.0989 | Val S(4) CE: 7.2603 acc: 0.0089 | n_tok=37582/32173 | gap=+0.2452 | Best AR: 5.5253 @ 36
+2026-10-21 04:55:31,090 - INFO - Epoch [44/50] Train AR: 5.2952 | Val AR: 5.5532 | Val S(3) CE: 5.9537 acc: 0.0793 | Val S(4) CE: 7.2777 acc: 0.0073 | n_tok=37582/32173 | gap=+0.2580 | Best AR: 5.5253 @ 36
+2026-10-21 05:45:19,812 - INFO - Epoch [45/50] Train AR: 5.2775 | Val AR: 5.5530 | Val S(3) CE: 5.9222 acc: 0.0819 | Val S(4) CE: 7.0064 acc: 0.0124 | n_tok=37582/32173 | gap=+0.2755 | Best AR: 5.5253 @ 36
+2026-10-21 06:35:02,325 - INFO - Epoch [46/50] Train AR: 5.2666 | Val AR: 5.5353 | Val S(3) CE: 5.9125 acc: 0.0868 | Val S(4) CE: 7.2587 acc: 0.0096 | n_tok=37582/32173 | gap=+0.2687 | Best AR: 5.5253 @ 36
+2026-10-21 07:24:43,212 - INFO - Epoch [47/50] Train AR: 5.2466 | Val AR: 5.5416 | Val S(3) CE: 5.9230 acc: 0.0868 | Val S(4) CE: 7.2305 acc: 0.0068 | n_tok=37582/32173 | gap=+0.2950 | Best AR: 5.5253 @ 36
+2026-10-21 08:14:24,175 - INFO - Epoch [48/50] Train AR: 5.2320 | Val AR: 5.5617 | Val S(3) CE: 5.9495 acc: 0.0824 | Val S(4) CE: 7.2260 acc: 0.0083 | n_tok=37582/32173 | gap=+0.3297 | Best AR: 5.5253 @ 36
+2026-10-21 09:03:54,632 - INFO - Epoch [49/50] Train AR: 5.2153 | Val AR: 5.5593 | Val S(3) CE: 5.9612 acc: 0.0764 | Val S(4) CE: 7.2935 acc: 0.0083 | n_tok=37582/32173 | gap=+0.3440 | Best AR: 5.5253 @ 36
+2026-10-21 09:53:24,199 - INFO - Epoch [50/50] Train AR: 5.2043 | Val AR: 5.5467 | Val S(3) CE: 5.9375 acc: 0.0841 | Val S(4) CE: 7.2762 acc: 0.0040 | n_tok=37582/32173 | gap=+0.3424 | Best AR: 5.5253 @ 36
+2026-10-21 09:53:26,934 - INFO - Training finished (completed) in 148500.2s
+2026-10-21 09:53:26,934 - INFO - Best Validation AR Loss: 5.525331 at epoch 36
+2026-10-21 09:53:26,934 - INFO - Metrics JSON: rocstories_T4max_x16/output_baseline_ar_attention_rollout/rocstories_rollout_T3N16_dx64_dt32_H2L2_do0.1_b32_s43.json
+2026-10-21 09:53:26,934 - INFO - Epoch JSONL:  rocstories_T4max_x16/output_baseline_ar_attention_rollout/rocstories_rollout_T3N16_dx64_dt32_H2L2_do0.1_b32_s43.jsonl

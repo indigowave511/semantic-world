@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="360" viewBox="0 0 720 360" role="img">
+<rect width="100%" height="100%" fill="#ffffff"/>
+<line x1="64" y1="284.50" x2="684" y2="284.50" stroke="#e6e6e6"/>
+<text x="56" y="288.50" text-anchor="end" font-family="Times New Roman, Times, serif" font-size="13" fill="#222">6</text>
+<line x1="64" y1="195.75" x2="684" y2="195.75" stroke="#e6e6e6"/>
+<text x="56" y="199.75" text-anchor="end" font-family="Times New Roman, Times, serif" font-size="13" fill="#222">7</text>
+<line x1="64" y1="107.00" x2="684" y2="107.00" stroke="#e6e6e6"/>
+<text x="56" y="111.00" text-anchor="end" font-family="Times New Roman, Times, serif" font-size="13" fill="#222">8</text>
+<text x="70.20" y="338" text-anchor="middle" font-family="Times New Roman, Times, serif" font-size="13" fill="#222">1</text>
+<text x="181.80" y="338" text-anchor="middle" font-family="Times New Roman, Times, serif" font-size="13" fill="#222">10</text>
+<text x="305.80" y="338" text-anchor="middle" font-family="Times New Roman, Times, serif" font-size="13" fill="#222">20</text>
+<text x="429.80" y="338" text-anchor="middle" font-family="Times New Roman, Times, serif" font-size="13" fill="#222">30</text>
+<text x="553.80" y="338" text-anchor="middle" font-family="Times New Roman, Times, serif" font-size="13" fill="#222">40</text>
+<text x="677.80" y="338" text-anchor="middle" font-family="Times New Roman, Times, serif" font-size="13" fill="#222">50</text>
+<clipPath id="panel"><rect x="64" y="36" width="620" height="284"/></clipPath>
+<line x1="64" y1="36" x2="64" y2="320" stroke="#222"/>
+<line x1="64" y1="320" x2="684" y2="320" stroke="#222"/>
+<g clip-path="url(#panel)">
+<path d="M70.20,-595.67 L82.60,4.83 L95.00,226.30 L107.40,248.07 L119.80,251.46 L132.20,241.97 L144.60,261.41 L157.00,256.33 L169.40,259.36 L181.80,202.69 L194.20,260.55 L206.60,267.13 L219.00,267.82 L231.40,271.17 L243.80,267.38 L256.20,268.48 L268.60,271.62 L281.00,273.44 L293.40,273.90 L305.80,275.16 L318.20,276.18 L330.60,277.94 L343.00,273.60 L355.40,275.55 L367.80,275.45 L380.20,277.33 L392.60,275.00 L405.00,276.48 L417.40,277.78 L429.80,275.54 L442.20,273.75 L454.60,276.86 L467.00,279.08 L479.40,280.27 L491.80,280.91 L504.20,277.80 L516.60,274.80 L529.00,279.37 L541.40,279.52 L553.80,278.50" fill="none" stroke="#222" stroke-width="1.6" stroke-dasharray="6 3.5"/>
+<path d="M70.20,-676.02 L82.60,154.27 L95.00,232.68 L107.40,235.79 L119.80,247.46 L132.20,247.88 L144.60,253.34 L157.00,251.22 L169.40,261.53 L181.80,262.45 L194.20,264.89 L206.60,268.87 L219.00,262.51 L231.40,270.19 L243.80,270.21 L256.20,270.92 L268.60,274.00 L281.00,272.96 L293.40,276.47 L305.80,271.62 L318.20,275.99 L330.60,275.80 L343.00,277.63 L355.40,277.08 L367.80,275.82 L380.20,276.71 L392.60,276.88 L405.00,278.96 L417.40,276.94 L429.80,276.62 L442.20,278.41 L454.60,278.85 L467.00,279.18 L479.40,279.39 L491.80,279.68 L504.20,280.51 L516.60,280.62 L529.00,279.48 L541.40,280.08 L553.80,275.27" fill="none" stroke="#222" stroke-width="1.6" stroke-dasharray="6 3.5"/>
+<path d="M70.20,-697.79 L82.60,119.59 L95.00,199.42 L107.40,236.69 L119.80,244.93 L132.20,255.54 L144.60,256.83 L157.00,249.83 L169.40,264.40 L181.80,259.77 L194.20,249.05 L206.60,268.39 L219.00,274.24 L231.40,276.55 L243.80,271.53 L256.20,256.74 L268.60,275.86 L281.00,280.51 L293.40,278.90 L305.80,279.42 L318.20,284.50 L330.60,283.85 L343.00,285.16 L355.40,288.98 L367.80,285.67 L380.20,287.03 L392.60,285.97 L405.00,288.39 L417.40,286.21 L429.80,286.78 L442.20,285.29 L454.60,290.79 L467.00,286.27 L479.40,287.79 L491.80,292.84 L504.20,291.91 L516.60,293.17 L529.00,283.09 L541.40,286.38 L553.80,291.55 L566.20,287.96 L578.60,291.11 L591.00,291.10 L603.40,288.61 L615.80,291.41 L628.20,292.27 L640.60,291.34 L653.00,288.98 L665.40,287.94 L677.80,290.05" fill="none" stroke="#222" stroke-width="1.6" stroke-dasharray="6 3.5"/>
+<path d="M70.20,291.07 L82.60,294.48 L95.00,291.93 L107.40,295.40 L119.80,294.78 L132.20,295.58 L144.60,294.95 L157.00,290.46 L169.40,285.56" fill="none" stroke="#222" stroke-width="1.8"/>
+<path d="M70.20,290.95 L82.60,298.84 L95.00,297.10 L107.40,298.45 L119.80,299.82 L132.20,300.30 L144.60,299.94 L157.00,297.56 L169.40,297.81 L181.80,289.98 L194.20,284.94" fill="none" stroke="#222" stroke-width="1.8"/>
+<path d="M70.20,298.60 L82.60,299.62 L95.00,300.91 L107.40,299.41 L119.80,296.02 L132.20,287.86 L144.60,279.48 L157.00,263.77" fill="none" stroke="#222" stroke-width="1.8"/>
+</g>
+<circle cx="479.40" cy="280.27" r="4" fill="#ffffff" stroke="#222" stroke-width="1.6"/>
+<circle cx="479.40" cy="279.39" r="4" fill="#ffffff" stroke="#222" stroke-width="1.6"/>
+<circle cx="504.20" cy="291.91" r="4" fill="#ffffff" stroke="#222" stroke-width="1.6"/>
+<circle cx="107.40" cy="295.40" r="4" fill="#ffffff" stroke="#222" stroke-width="1.6"/>
+<circle cx="132.20" cy="300.30" r="4" fill="#ffffff" stroke="#222" stroke-width="1.6"/>
+<circle cx="95.00" cy="300.91" r="4" fill="#ffffff" stroke="#222" stroke-width="1.6"/>
+<text x="374" y="354" text-anchor="middle" font-family="Times New Roman, Times, serif" font-size="14" fill="#222">epoch</text>
+<text x="18" y="178" text-anchor="middle" font-family="Times New Roman, Times, serif" font-size="14" fill="#222" transform="rotate(-90 18 178)">S(3) cross-entropy</text>
+<line x1="530" y1="50" x2="558" y2="50" stroke="#222" stroke-width="1.8"/>
+<text x="564" y="54" font-family="Times New Roman, Times, serif" font-size="13" fill="#222">4-tensor</text>
+<line x1="530" y1="68" x2="558" y2="68" stroke="#222" stroke-width="1.6" stroke-dasharray="6 3.5"/>
+<text x="564" y="72" font-family="Times New Roman, Times, serif" font-size="13" fill="#222">baseline</text>
+</svg>

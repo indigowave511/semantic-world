@@ -1,0 +1,70 @@
+2026-10-16 17:52:10,825 - INFO - ✓ Set seed to 41 with deterministic algorithms enabled
+2026-10-16 17:52:10,826 - INFO - ✓ All random seeds set to 41 for reproducibility
+2026-10-16 17:52:12,339 - INFO - [Run] output_dir : rocstories_T4max_x16/output_baseline_ar_attention_preLN
+2026-10-16 17:52:12,339 - INFO - [Run] file tag   : rocstories_T4N16_dx64_dt32_H4L2_do0.1_b32_s41
+2026-10-16 17:52:12,339 - INFO - [Run] logs       : rocstories_T4N16_dx64_dt32_H4L2_do0.1_b32_s41.log  and  /home/indigowave/Desktop/semantic-world/baseline_ar_attention_train.log
+2026-10-16 17:52:12,339 - INFO - [Data] dir        : rocstories_T4max_x16
+2026-10-16 17:52:12,339 - INFO - [Data] jsonl      : psf_pool_T4_N16.jsonl
+2026-10-16 17:52:12,339 - INFO - [Data] vocab      : psf_pool_T4_N16.vocab.json
+2026-10-16 17:52:12,340 - INFO - [Data] T=4, N=16, vocab_size=36711, windows=101671
+2026-10-16 17:52:12,348 - INFO - [Data Load] Train 샘플 수 (train+dev): 97929
+2026-10-16 17:52:12,348 - INFO - [Data Load] Validation 샘플 수 (test): 3742
+2026-10-16 17:52:13,078 - INFO - Using 2 GPUs: ['NVIDIA GeForce RTX 3080', 'NVIDIA GeForce RTX 3080']
+2026-10-16 17:52:13,608 - INFO - [Model] BaselineARAttention on cuda  gpus=2  params=175,892,480
+2026-10-16 17:52:13,608 - INFO - [Model] d=2048 (d_x=64 d_t=32) n_layers=2 n_heads=4 dropout=0.1 padding_idx=0 bos=36711 eos=36712 vocab_ext=36713 train=AR-fair batch/gpu=32 loader_batch=64 effective_batch=64
+2026-10-16 17:52:13,609 - INFO - [Train] AR free-running only: own tokens on the left of S(T). Val loss is the same AR CE. Gen token-acc is the decoded comparison.
+2026-10-16 17:52:13,609 - INFO - Random seed: 41 (deterministic mode: True)
+2026-10-16 17:52:13,609 - INFO - [Provenance] baseline_ar_attention_model.py mtime=2026-09-21T09:33:27.504265+00:00 sha256=790bf2a36489...
+2026-10-16 17:52:13,609 - INFO - [Provenance] machine=indigowave0 user=indigowave torch=2.7.1+cu128
+2026-10-16 17:52:13,609 - INFO - [Repro] driver=580.178.04 cuda_built=12.8 cudnn=90701 gpus=['NVIDIA GeForce RTX 3080', 'NVIDIA GeForce RTX 3080'] tf32_matmul=False cudnn_deterministic=True cublas=:4096:8
+2026-10-16 17:52:13,609 - INFO - [Provenance] git unavailable
+2026-10-16 18:46:03,822 - INFO - NEW BEST VALIDATION FAIR LOSS: 17.134442 at epoch 1
+2026-10-16 18:46:05,340 - INFO - Epoch [1/100] Train AR: 31.8316 | Val AR: 17.1344 | Val S(T) CE: 18.0321 | Val S(T) token-acc: 0.0513 | n_tok=32173 | gap=-14.6971 | Best AR: 17.1344 @ 1
+2026-10-16 19:39:56,846 - INFO - NEW BEST VALIDATION FAIR LOSS: 9.833524 at epoch 2
+2026-10-16 19:40:00,251 - INFO - Epoch [2/100] Train AR: 15.6324 | Val AR: 9.8335 | Val S(T) CE: 10.2665 | Val S(T) token-acc: 0.0194 | n_tok=32173 | gap=-5.7989 | Best AR: 9.8335 @ 2
+2026-10-16 20:33:42,245 - INFO - NEW BEST VALIDATION FAIR LOSS: 6.256995 at epoch 3
+2026-10-16 20:33:45,713 - INFO - Epoch [3/100] Train AR: 6.9705 | Val AR: 6.2570 | Val S(T) CE: 6.7615 | Val S(T) token-acc: 0.0259 | n_tok=32173 | gap=-0.7135 | Best AR: 6.2570 @ 3
+2026-10-16 21:27:29,347 - INFO - Epoch [4/100] Train AR: 6.3126 | Val AR: 6.3197 | Val S(T) CE: 6.5742 | Val S(T) token-acc: 0.0811 | n_tok=32173 | gap=+0.0070 | Best AR: 6.2570 @ 3
+2026-10-16 22:20:42,956 - INFO - NEW BEST VALIDATION FAIR LOSS: 5.921389 at epoch 5
+2026-10-16 22:20:46,520 - INFO - Epoch [5/100] Train AR: 6.1456 | Val AR: 5.9214 | Val S(T) CE: 6.4098 | Val S(T) token-acc: 0.0239 | n_tok=32173 | gap=-0.2242 | Best AR: 5.9214 @ 5
+2026-10-16 23:14:24,010 - INFO - Epoch [6/100] Train AR: 6.0405 | Val AR: 5.9759 | Val S(T) CE: 6.3629 | Val S(T) token-acc: 0.0392 | n_tok=32173 | gap=-0.0645 | Best AR: 5.9214 @ 5
+2026-10-17 00:07:53,538 - INFO - NEW BEST VALIDATION FAIR LOSS: 5.817506 at epoch 7
+2026-10-17 00:07:57,102 - INFO - Epoch [7/100] Train AR: 6.0222 | Val AR: 5.8175 | Val S(T) CE: 6.2747 | Val S(T) token-acc: 0.0322 | n_tok=32173 | gap=-0.2047 | Best AR: 5.8175 @ 7
+2026-10-17 01:01:42,420 - INFO - NEW BEST VALIDATION FAIR LOSS: 5.813404 at epoch 8
+2026-10-17 01:01:46,283 - INFO - Epoch [8/100] Train AR: 5.9139 | Val AR: 5.8134 | Val S(T) CE: 6.2177 | Val S(T) token-acc: 0.0862 | n_tok=32173 | gap=-0.1005 | Best AR: 5.8134 @ 8
+2026-10-17 01:55:22,474 - INFO - NEW BEST VALIDATION FAIR LOSS: 5.675534 at epoch 9
+2026-10-17 01:55:26,306 - INFO - Epoch [9/100] Train AR: 5.8508 | Val AR: 5.6755 | Val S(T) CE: 6.1109 | Val S(T) token-acc: 0.0459 | n_tok=32173 | gap=-0.1752 | Best AR: 5.6755 @ 9
+2026-10-17 02:49:01,998 - INFO - NEW BEST VALIDATION FAIR LOSS: 5.628552 at epoch 10
+2026-10-17 02:49:05,689 - INFO - Epoch [10/100] Train AR: 5.7889 | Val AR: 5.6286 | Val S(T) CE: 6.0630 | Val S(T) token-acc: 0.0546 | n_tok=32173 | gap=-0.1603 | Best AR: 5.6286 @ 10
+2026-10-17 03:42:49,548 - INFO - NEW BEST VALIDATION FAIR LOSS: 5.604600 at epoch 11
+2026-10-17 03:42:52,914 - INFO - Epoch [11/100] Train AR: 5.7220 | Val AR: 5.6046 | Val S(T) CE: 6.0032 | Val S(T) token-acc: 0.1264 | n_tok=32173 | gap=-0.1174 | Best AR: 5.6046 @ 11
+2026-10-17 04:36:36,660 - INFO - NEW BEST VALIDATION FAIR LOSS: 5.548342 at epoch 12
+2026-10-17 04:36:40,046 - INFO - Epoch [12/100] Train AR: 5.6749 | Val AR: 5.5483 | Val S(T) CE: 5.9131 | Val S(T) token-acc: 0.1010 | n_tok=32173 | gap=-0.1265 | Best AR: 5.5483 @ 12
+2026-10-17 05:30:20,470 - INFO - NEW BEST VALIDATION FAIR LOSS: 5.518698 at epoch 13
+2026-10-17 05:30:23,840 - INFO - Epoch [13/100] Train AR: 5.6342 | Val AR: 5.5187 | Val S(T) CE: 5.8569 | Val S(T) token-acc: 0.1281 | n_tok=32173 | gap=-0.1155 | Best AR: 5.5187 @ 13
+2026-10-17 06:24:05,667 - INFO - NEW BEST VALIDATION FAIR LOSS: 5.473539 at epoch 14
+2026-10-17 06:24:09,381 - INFO - Epoch [14/100] Train AR: 5.6141 | Val AR: 5.4735 | Val S(T) CE: 5.8746 | Val S(T) token-acc: 0.0936 | n_tok=32173 | gap=-0.1406 | Best AR: 5.4735 @ 14
+2026-10-17 07:17:50,567 - INFO - Epoch [15/100] Train AR: 5.5745 | Val AR: 5.4890 | Val S(T) CE: 5.8240 | Val S(T) token-acc: 0.0860 | n_tok=32173 | gap=-0.0855 | Best AR: 5.4735 @ 14
+2026-10-17 08:11:42,099 - INFO - NEW BEST VALIDATION FAIR LOSS: 5.462558 at epoch 16
+2026-10-17 08:11:45,592 - INFO - Epoch [16/100] Train AR: 5.5533 | Val AR: 5.4626 | Val S(T) CE: 5.8450 | Val S(T) token-acc: 0.0910 | n_tok=32173 | gap=-0.0908 | Best AR: 5.4626 @ 16
+2026-10-17 09:05:39,448 - INFO - NEW BEST VALIDATION FAIR LOSS: 5.385846 at epoch 17
+2026-10-17 09:05:42,869 - INFO - Epoch [17/100] Train AR: 5.5206 | Val AR: 5.3858 | Val S(T) CE: 5.7537 | Val S(T) token-acc: 0.1133 | n_tok=32173 | gap=-0.1348 | Best AR: 5.3858 @ 17
+2026-10-17 09:59:39,851 - INFO - Epoch [18/100] Train AR: 5.5030 | Val AR: 5.4260 | Val S(T) CE: 5.7432 | Val S(T) token-acc: 0.1139 | n_tok=32173 | gap=-0.0770 | Best AR: 5.3858 @ 17
+2026-10-17 10:53:29,756 - INFO - NEW BEST VALIDATION FAIR LOSS: 5.384567 at epoch 19
+2026-10-17 10:53:33,192 - INFO - Epoch [19/100] Train AR: 5.4784 | Val AR: 5.3846 | Val S(T) CE: 5.7240 | Val S(T) token-acc: 0.1149 | n_tok=32173 | gap=-0.0938 | Best AR: 5.3846 @ 19
+2026-10-17 11:47:26,025 - INFO - Epoch [20/100] Train AR: 5.4584 | Val AR: 5.4120 | Val S(T) CE: 5.7351 | Val S(T) token-acc: 0.1293 | n_tok=32173 | gap=-0.0464 | Best AR: 5.3846 @ 19
+2026-10-17 12:41:16,202 - INFO - Epoch [21/100] Train AR: 5.4381 | Val AR: 5.3999 | Val S(T) CE: 5.7205 | Val S(T) token-acc: 0.0990 | n_tok=32173 | gap=-0.0383 | Best AR: 5.3846 @ 19
+2026-10-17 13:35:09,047 - INFO - NEW BEST VALIDATION FAIR LOSS: 5.351575 at epoch 22
+2026-10-17 13:35:12,428 - INFO - Epoch [22/100] Train AR: 5.4300 | Val AR: 5.3516 | Val S(T) CE: 5.7391 | Val S(T) token-acc: 0.1040 | n_tok=32173 | gap=-0.0784 | Best AR: 5.3516 @ 22
+2026-10-17 14:29:01,151 - INFO - NEW BEST VALIDATION FAIR LOSS: 5.294816 at epoch 23
+2026-10-17 14:29:04,691 - INFO - Epoch [23/100] Train AR: 5.4163 | Val AR: 5.2948 | Val S(T) CE: 5.6756 | Val S(T) token-acc: 0.1308 | n_tok=32173 | gap=-0.1215 | Best AR: 5.2948 @ 23
+2026-10-17 15:22:47,758 - INFO - Epoch [24/100] Train AR: 5.3912 | Val AR: 5.2979 | Val S(T) CE: 5.6793 | Val S(T) token-acc: 0.1153 | n_tok=32173 | gap=-0.0933 | Best AR: 5.2948 @ 23
+2026-10-17 16:16:32,215 - INFO - Epoch [25/100] Train AR: 5.3741 | Val AR: 5.3167 | Val S(T) CE: 5.6750 | Val S(T) token-acc: 0.1215 | n_tok=32173 | gap=-0.0574 | Best AR: 5.2948 @ 23
+2026-10-17 17:10:17,579 - INFO - Epoch [26/100] Train AR: 5.3579 | Val AR: 5.3660 | Val S(T) CE: 5.6813 | Val S(T) token-acc: 0.1187 | n_tok=32173 | gap=+0.0081 | Best AR: 5.2948 @ 23
+2026-10-17 18:04:01,290 - INFO - Epoch [27/100] Train AR: 5.3466 | Val AR: 5.4182 | Val S(T) CE: 5.7929 | Val S(T) token-acc: 0.0840 | n_tok=32173 | gap=+0.0716 | Best AR: 5.2948 @ 23
+2026-10-17 18:57:43,426 - INFO - Epoch [28/100] Train AR: 5.3464 | Val AR: 5.3511 | Val S(T) CE: 5.6841 | Val S(T) token-acc: 0.1273 | n_tok=32173 | gap=+0.0047 | Best AR: 5.2948 @ 23
+2026-10-17 18:57:43,428 - INFO - VALIDATION MINIMUM REACHED: val_minimum: best 5.294816 at epoch 23, now 5.351147 after 5 epochs
+2026-10-17 18:57:44,932 - INFO - Training finished (val_minimum: best 5.294816 at epoch 23, now 5.351147 after 5 epochs) in 90334.3s
+2026-10-17 18:57:44,932 - INFO - Best Validation AR Loss: 5.294816 at epoch 23
+2026-10-17 18:57:44,932 - INFO - Metrics JSON: rocstories_T4max_x16/output_baseline_ar_attention_preLN/rocstories_T4N16_dx64_dt32_H4L2_do0.1_b32_s41.json
+2026-10-17 18:57:44,932 - INFO - Epoch JSONL:  rocstories_T4max_x16/output_baseline_ar_attention_preLN/rocstories_T4N16_dx64_dt32_H4L2_do0.1_b32_s41.jsonl

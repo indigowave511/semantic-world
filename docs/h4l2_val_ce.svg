@@ -18,15 +18,21 @@
 <line x1="56" y1="36" x2="56" y2="276" stroke="#222"/>
 <line x1="56" y1="276" x2="336" y2="276" stroke="#222"/>
 <g clip-path="url(#v4)">
+<path d="M58.80,116.20 L64.40,209.18 L70.00,99.60 L75.60,235.68 L81.20,233.74 L86.80,227.27 L92.40,234.28 L98.00,205.05 L103.60,171.98" fill="none" stroke="#222" stroke-width="1.8"/>
+<path d="M58.80,135.67 L64.40,188.46 L70.00,173.63 L75.60,192.36 L81.20,246.04 L86.80,233.57 L92.40,217.49 L98.00,204.08 L103.60,179.69 L109.20,137.49" fill="none" stroke="#222" stroke-width="1.8"/>
 <path d="M58.80,186.01 L64.40,218.25 L70.00,196.67 L75.60,234.06 L81.20,236.13 L86.80,246.36 L92.40,228.75 L98.00,218.94 L103.60,188.94 L109.20,140.85 L114.80,73.33" fill="none" stroke="#222" stroke-width="1.8"/>
 </g>
+<circle cx="75.60" cy="235.68" r="4" fill="#ffffff" stroke="#222" stroke-width="1.6"/>
+<circle cx="81.20" cy="246.04" r="4" fill="#ffffff" stroke="#222" stroke-width="1.6"/>
 <circle cx="86.80" cy="246.36" r="4" fill="#ffffff" stroke="#222" stroke-width="1.6"/>
-<line x1="408" y1="252.00" x2="688" y2="252.00" stroke="#e6e6e6"/>
-<text x="400" y="256.00" text-anchor="end" font-family="Times New Roman, Times, serif" font-size="13" fill="#222">6</text>
-<line x1="408" y1="156.00" x2="688" y2="156.00" stroke="#e6e6e6"/>
-<text x="400" y="160.00" text-anchor="end" font-family="Times New Roman, Times, serif" font-size="13" fill="#222">10</text>
-<line x1="408" y1="60.00" x2="688" y2="60.00" stroke="#e6e6e6"/>
-<text x="400" y="64.00" text-anchor="end" font-family="Times New Roman, Times, serif" font-size="13" fill="#222">14</text>
+<line x1="408" y1="257.54" x2="688" y2="257.54" stroke="#e6e6e6"/>
+<text x="400" y="261.54" text-anchor="end" font-family="Times New Roman, Times, serif" font-size="13" fill="#222">6</text>
+<line x1="408" y1="183.69" x2="688" y2="183.69" stroke="#e6e6e6"/>
+<text x="400" y="187.69" text-anchor="end" font-family="Times New Roman, Times, serif" font-size="13" fill="#222">10</text>
+<line x1="408" y1="109.85" x2="688" y2="109.85" stroke="#e6e6e6"/>
+<text x="400" y="113.85" text-anchor="end" font-family="Times New Roman, Times, serif" font-size="13" fill="#222">14</text>
+<line x1="408" y1="36.00" x2="688" y2="36.00" stroke="#e6e6e6"/>
+<text x="400" y="40.00" text-anchor="end" font-family="Times New Roman, Times, serif" font-size="13" fill="#222">18</text>
 <text x="410.80" y="294" text-anchor="middle" font-family="Times New Roman, Times, serif" font-size="13" fill="#222">1</text>
 <text x="461.20" y="294" text-anchor="middle" font-family="Times New Roman, Times, serif" font-size="13" fill="#222">10</text>
 <text x="517.20" y="294" text-anchor="middle" font-family="Times New Roman, Times, serif" font-size="13" fill="#222">20</text>
@@ -37,9 +43,13 @@
 <line x1="408" y1="36" x2="408" y2="276" stroke="#222"/>
 <line x1="408" y1="276" x2="688" y2="276" stroke="#222"/>
 <g clip-path="url(#var)">
-<path d="M410.80,61.21 L416.40,227.29 L422.00,246.07 L427.60,250.57 L433.20,251.84 L438.80,251.03 L444.40,253.87 L450.00,254.04 L455.60,254.02 L461.20,257.82 L466.80,255.85 L472.40,257.85 L478.00,258.54 L483.60,258.07 L489.20,259.46 L494.80,261.60 L500.40,261.67 L506.00,261.29 L511.60,262.68 L517.20,263.45 L522.80,261.94 L528.40,262.86 L534.00,264.27 L539.60,265.36 L545.20,265.17 L550.80,265.54 L556.40,265.28 L562.00,265.22 L567.60,265.39 L573.20,266.37 L578.80,266.86 L584.40,267.13 L590.00,266.77 L595.60,265.45 L601.20,267.49 L606.80,266.83 L612.40,267.34 L618.00,267.64 L623.60,267.06 L629.20,266.66 L634.80,267.96 L640.40,268.18 L646.00,267.55 L651.60,267.95 L657.20,268.55 L662.80,267.54 L668.40,266.98 L674.00,268.08 L679.60,267.09 L685.20,267.91" fill="none" stroke="#222" stroke-width="1.6" stroke-dasharray="6 3.5"/>
+<path d="M410.80,51.98 L416.40,186.77 L422.00,252.79 L427.60,251.64 L433.20,258.99 L438.80,257.98 L444.40,260.91 L450.00,260.98 L455.60,263.53 L461.20,264.40 L466.80,264.84 L472.40,265.88 L478.00,266.42 L483.60,267.26 L489.20,266.97 L494.80,267.46 L500.40,268.88 L506.00,268.14 L511.60,268.90 L517.20,268.39 L522.80,268.62 L528.40,269.51 L534.00,270.56 L539.60,270.50 L545.20,270.15 L550.80,269.24 L556.40,268.28 L562.00,269.52" fill="none" stroke="#222" stroke-width="1.6" stroke-dasharray="6 3.5"/>
+<path d="M410.80,119.24 L416.40,218.10 L422.00,253.33 L427.60,254.42 L433.20,257.55 L438.80,257.43 L444.40,260.43 L450.00,261.09 L455.60,260.64 L461.20,261.24 L466.80,262.77 L472.40,261.97 L478.00,263.97 L483.60,263.44 L489.20,262.73 L494.80,265.24 L500.40,265.56 L506.00,265.49 L511.60,266.85 L517.20,265.91 L522.80,266.39 L528.40,265.72 L534.00,266.80 L539.60,266.90 L545.20,267.93 L550.80,268.05 L556.40,268.57 L562.00,267.97 L567.60,270.21 L573.20,269.86 L578.80,269.60 L584.40,270.14 L590.00,269.60 L595.60,271.05 L601.20,269.36 L606.80,270.50 L612.40,270.60 L618.00,270.68 L623.60,270.98 L629.20,270.41 L634.80,270.83 L640.40,271.35 L646.00,269.13 L651.60,271.34 L657.20,271.76 L662.80,271.65 L668.40,270.51 L674.00,270.54 L679.60,270.73 L685.20,270.67" fill="none" stroke="#222" stroke-width="1.6" stroke-dasharray="6 3.5"/>
+<path d="M410.80,110.77 L416.40,238.53 L422.00,252.98 L427.60,256.44 L433.20,257.41 L438.80,256.79 L444.40,258.97 L450.00,259.11 L455.60,259.09 L461.20,262.02 L466.80,260.50 L472.40,262.04 L478.00,262.57 L483.60,262.21 L489.20,263.28 L494.80,264.92 L500.40,264.97 L506.00,264.68 L511.60,265.75 L517.20,266.35 L522.80,265.19 L528.40,265.89 L534.00,266.98 L539.60,267.82 L545.20,267.67 L550.80,267.96 L556.40,267.75 L562.00,267.71 L567.60,267.84 L573.20,268.59 L578.80,268.97 L584.40,269.18 L590.00,268.90 L595.60,267.88 L601.20,269.46 L606.80,268.94 L612.40,269.34 L618.00,269.57 L623.60,269.13 L629.20,268.82 L634.80,269.82 L640.40,269.98 L646.00,269.50 L651.60,269.81 L657.20,270.27 L662.80,269.49 L668.40,269.06 L674.00,269.91 L679.60,269.15 L685.20,269.78" fill="none" stroke="#222" stroke-width="1.6" stroke-dasharray="6 3.5"/>
 </g>
-<circle cx="657.20" cy="268.55" r="4" fill="#ffffff" stroke="#222" stroke-width="1.6"/>
+<circle cx="534.00" cy="270.56" r="4" fill="#ffffff" stroke="#222" stroke-width="1.6"/>
+<circle cx="657.20" cy="271.76" r="4" fill="#ffffff" stroke="#222" stroke-width="1.6"/>
+<circle cx="657.20" cy="270.27" r="4" fill="#ffffff" stroke="#222" stroke-width="1.6"/>
 <text x="196" y="22" text-anchor="middle" font-family="Times New Roman, Times, serif" font-size="14" fill="#222">4-tensor</text>
 <text x="548" y="22" text-anchor="middle" font-family="Times New Roman, Times, serif" font-size="14" fill="#222">baseline</text>
 <text x="360" y="328" text-anchor="middle" font-family="Times New Roman, Times, serif" font-size="14" fill="#222">epoch</text>

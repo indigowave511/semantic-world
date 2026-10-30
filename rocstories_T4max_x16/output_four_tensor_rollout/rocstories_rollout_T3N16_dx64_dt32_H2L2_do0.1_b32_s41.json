@@ -1,0 +1,498 @@
+{
+  "experiment_config": {
+    "data_dir": "rocstories_T4max_x16",
+    "jsonl": "psf_pool_T4_N16.jsonl",
+    "T": 3,
+    "N": 16,
+    "vocab_size": 36711,
+    "n_train": 97929,
+    "n_val": 3742,
+    "d_x": 64,
+    "d_t": 32,
+    "n_layers": 2,
+    "n_heads": 2,
+    "dropout": 0.1,
+    "padding_idx": 0,
+    "epochs": 50,
+    "batch_size": 32,
+    "loader_batch": 64,
+    "effective_batch": 64,
+    "lr": 0.0003,
+    "optimizer": "adamw",
+    "num_workers": 2,
+    "seed": 41,
+    "deterministic": true,
+    "n_params": 122180480,
+    "gpu_count": 2,
+    "gpu_names": [
+      "NVIDIA GeForce RTX 3080",
+      "NVIDIA GeForce RTX 3080"
+    ],
+    "device": "cuda",
+    "save_checkpoints": true,
+    "stop_at_val_minimum": true,
+    "val_minimum_patience": 5,
+    "val_minimum_ratio": 1.01,
+    "checkpoint_every": 0,
+    "run_tag": "rocstories_rollout_T3N16_dx64_dt32_H2L2_do0.1_b32_s41",
+    "provenance": {
+      "machine": {
+        "hostname": "indigowave",
+        "username": "indigowave",
+        "platform": "Linux-6.17.0-20-generic-x86_64-with-glibc2.39",
+        "processor": "x86_64",
+        "cpu_count": 16,
+        "python": "3.12.11",
+        "python_executable": "/home/indigowave/.miniconda3/envs/torch/bin/python",
+        "torch": "2.7.1+cu128",
+        "torch_cuda_built": "12.8",
+        "cuda_available": true,
+        "gpu_names": [
+          "NVIDIA GeForce RTX 3080",
+          "NVIDIA GeForce RTX 3080"
+        ]
+      },
+      "source_files": {
+        "four_tensor_model.py": {
+          "path": "/home/indigowave/Desktop/semantic-world1002/four_tensor_model.py",
+          "size_bytes": 29174,
+          "mtime_utc": "2026-09-21T09:33:26+00:00",
+          "ctime_utc": "2026-10-15T10:25:19.556366+00:00",
+          "sha256": "6c37c49f3fb4b7b3ec01f0ed9347039ebecaaee5fc80b6a099088b742127b2f6"
+        },
+        "four_tensor_model_rollout.py": {
+          "path": "/home/indigowave/Desktop/semantic-world1002/four_tensor_model_rollout.py",
+          "size_bytes": 6700,
+          "mtime_utc": "2026-10-14T09:32:32+00:00",
+          "ctime_utc": "2026-10-15T10:25:19.557380+00:00",
+          "sha256": "fed19280c700acf40b14cd06b4ffc0037d996ec43b7b14114fd4379a4250d399"
+        },
+        "four_tensor_train_rollout.py": {
+          "path": "/home/indigowave/Desktop/semantic-world1002/four_tensor_train_rollout.py",
+          "size_bytes": 35898,
+          "mtime_utc": "2026-10-14T10:16:34+00:00",
+          "ctime_utc": "2026-10-15T10:25:19.560965+00:00",
+          "sha256": "853d96e5312340acf87fd73fa93fd4cc45ec7dddfde1a4f35976f3a29f6f1e91"
+        }
+      },
+      "git": {
+        "available": false
+      },
+      "argv": [
+        "four_tensor_train_rollout.py",
+        "--data_dir",
+        "rocstories_T4max_x16",
+        "--output_dir",
+        "rocstories_T4max_x16/output_four_tensor_rollout",
+        "--run_tag",
+        "rocstories_rollout_T3N16_dx64_dt32_H2L2_do0.1_b32_s41",
+        "--d_x",
+        "64",
+        "--d_t",
+        "32",
+        "--n_heads",
+        "2",
+        "--n_layers",
+        "2",
+        "--dropout",
+        "0.1",
+        "--padding_idx",
+        "0",
+        "--epochs",
+        "50",
+        "--batch_size",
+        "32",
+        "--lr",
+        "0.0003",
+        "--optimizer",
+        "adamw",
+        "--num_workers",
+        "2",
+        "--seed",
+        "41",
+        "--deterministic",
+        "true",
+        "--save_checkpoints",
+        "true",
+        "--resume_from_checkpoint",
+        "false",
+        "--stop_at_val_minimum",
+        "true",
+        "--val_minimum_patience",
+        "5",
+        "--val_minimum_ratio",
+        "1.01",
+        "--checkpoint_every",
+        "0"
+      ],
+      "reproducibility": {
+        "software": {
+          "python": "3.12.11",
+          "python_full": "3.12.11 | packaged by conda-forge | (main, Jun  4 2025, 14:45:31) [GCC 13.3.0]",
+          "python_executable": "/home/indigowave/.miniconda3/envs/torch/bin/python",
+          "numpy": "2.3.2",
+          "torch": "2.7.1+cu128",
+          "torch_cuda_built": "12.8",
+          "torch_git_version": "e2d141dbde55c2a4370fac5165b0561b6af4798b",
+          "debug_build": false,
+          "cudnn": 90701,
+          "nccl": [
+            2,
+            26,
+            2
+          ]
+        },
+        "env": {
+          "CUBLAS_WORKSPACE_CONFIG": ":4096:8",
+          "PYTORCH_CUDA_ALLOC_CONF": "expandable_segments:True",
+          "TOKENIZERS_PARALLELISM": "false"
+        },
+        "gpu": {
+          "driver_version": "570.211.01",
+          "nvidia_proc_version": "NVRM version: NVIDIA UNIX x86_64 Kernel Module  570.211.01  Tue Nov 25 16:36:36 UTC 2025\nGCC version:  gcc version 13.3.0 (Ubuntu 13.3.0-6ubuntu2~24.04.1)",
+          "nvidia_smi": [
+            {
+              "index": 0,
+              "name": "NVIDIA GeForce RTX 3080",
+              "uuid": "GPU-1fbc01e1-c223-7c2c-a0ef-d535c35925fe",
+              "driver_version": "570.211.01",
+              "memory_total_mib": 10240,
+              "compute_cap": "8.6"
+            },
+            {
+              "index": 1,
+              "name": "NVIDIA GeForce RTX 3080",
+              "uuid": "GPU-a6156bc5-3223-a257-bf66-6e39045e60b9",
+              "driver_version": "570.211.01",
+              "memory_total_mib": 10240,
+              "compute_cap": "8.6"
+            }
+          ],
+          "cuda_available": true,
+          "device_count": 2,
+          "current_device": 0,
+          "torch_devices": [
+            {
+              "index": 0,
+              "name": "NVIDIA GeForce RTX 3080",
+              "capability": "8.6",
+              "total_memory_bytes": 10364977152,
+              "multi_processor_count": 68
+            },
+            {
+              "index": 1,
+              "name": "NVIDIA GeForce RTX 3080",
+              "capability": "8.6",
+              "total_memory_bytes": 10365239296,
+              "multi_processor_count": 68
+            }
+          ],
+          "cuda_runtime_version": "12.8"
+        },
+        "seed": 41,
+        "deterministic_requested": true,
+        "pythonhashseed": "41",
+        "torch_num_threads": 8,
+        "deterministic_algorithms_enabled": true,
+        "torch_flags": {
+          "cudnn_enabled": true,
+          "cudnn_deterministic": true,
+          "cudnn_benchmark": false,
+          "allow_tf32_matmul": false,
+          "allow_tf32_cudnn": true,
+          "float32_matmul_precision": "highest"
+        }
+      }
+    }
+  },
+  "training_metrics": {
+    "train_losses": [
+      2.861978307268978,
+      2.13547485568165,
+      2.053105317845064,
+      2.0131559954749214,
+      1.967856296760584,
+      2.002905597795848,
+      1.95861438442679,
+      1.9099030050576902,
+      1.8512228108699025
+    ],
+    "val_losses": [
+      2.1922045885506325,
+      2.092788916523174,
+      2.0961537583399625,
+      2.0544004622152294,
+      2.0590299994258556,
+      2.0796079575005226,
+      2.064110293226727,
+      2.0606968382657587,
+      2.082994133739148
+    ],
+    "val_s3_ces": [
+      5.925924039979453,
+      5.887579800113127,
+      5.916260882973398,
+      5.877155936726691,
+      5.884143070303977,
+      5.875139921902024,
+      5.882209797726679,
+      5.932791584797077,
+      5.988031100379254
+    ],
+    "val_s3_accs": [
+      0.13801820020222447,
+      0.13857697834069502,
+      0.13666116758022456,
+      0.13998722792826354,
+      0.13873662923740088,
+      0.13980096854877336,
+      0.14107817572242032,
+      0.13953488372093023,
+      0.13639508275238146
+    ],
+    "val_s4_ces": [
+      6.010849043130838,
+      5.976656622346135,
+      6.014279498543519,
+      5.983356553492301,
+      5.968344978344613,
+      5.985507249291185,
+      5.998576361098592,
+      6.013567777741623,
+      6.019443479119477
+    ],
+    "val_s4_accs": [
+      0.15307866844869922,
+      0.15077860317657663,
+      0.149379914835421,
+      0.14431355484412395,
+      0.15861125788704813,
+      0.15298542255928885,
+      0.1448730301805862,
+      0.1438162434339353,
+      0.14757716097348708
+    ],
+    "train_ppl": [
+      17.49610539437581,
+      8.461063337077162,
+      7.79206039995973,
+      7.486908750694921,
+      7.155321150453939,
+      7.410556945324309,
+      7.0894969389765645,
+      6.752433814838426,
+      6.367601135795654
+    ],
+    "val_ppl": [
+      8.954933312703218,
+      8.10749478950469,
+      8.134821175702497,
+      7.8021587811379085,
+      7.838362905045407,
+      8.00133143734854,
+      7.878285414695451,
+      7.851439087693831,
+      8.028471279951583
+    ],
+    "val_s3_ppl": [
+      374.62444343601953,
+      360.53166893235135,
+      371.0218229975842,
+      356.7930553198203,
+      359.2947457015112,
+      356.07447980378026,
+      358.6008020297517,
+      377.2060480875362,
+      398.62897632375234
+    ],
+    "val_s4_ppl": [
+      407.8294381016008,
+      394.1204693545797,
+      409.23088122470944,
+      396.7699150033379,
+      390.85825627685455,
+      397.62416467897623,
+      402.85486519862775,
+      408.93972671641416,
+      411.3496073684791
+    ],
+    "best_val_loss": 2.0544004622152294,
+    "best_val_epoch": 4,
+    "last_epoch": 9,
+    "stopped_reason": "val_minimum: best 2.054400 at epoch 4, now 2.082994 after 5 epochs",
+    "training_time_sec": 4349.242914915085,
+    "started_utc": "2026-10-23T06:19:22.959510+00:00",
+    "val_loss_is": "window_ce_S1_S2_S3",
+    "val_s3_ce_is": "rollout_step1_nonpad_S3_from_gold_S0_S1_S2",
+    "val_s4_ce_is": "rollout_step2_nonpad_S4_from_S1_S2_hatS3"
+  },
+  "provenance": {
+    "machine": {
+      "hostname": "indigowave",
+      "username": "indigowave",
+      "platform": "Linux-6.17.0-20-generic-x86_64-with-glibc2.39",
+      "processor": "x86_64",
+      "cpu_count": 16,
+      "python": "3.12.11",
+      "python_executable": "/home/indigowave/.miniconda3/envs/torch/bin/python",
+      "torch": "2.7.1+cu128",
+      "torch_cuda_built": "12.8",
+      "cuda_available": true,
+      "gpu_names": [
+        "NVIDIA GeForce RTX 3080",
+        "NVIDIA GeForce RTX 3080"
+      ]
+    },
+    "source_files": {
+      "four_tensor_model.py": {
+        "path": "/home/indigowave/Desktop/semantic-world1002/four_tensor_model.py",
+        "size_bytes": 29174,
+        "mtime_utc": "2026-09-21T09:33:26+00:00",
+        "ctime_utc": "2026-10-15T10:25:19.556366+00:00",
+        "sha256": "6c37c49f3fb4b7b3ec01f0ed9347039ebecaaee5fc80b6a099088b742127b2f6"
+      },
+      "four_tensor_model_rollout.py": {
+        "path": "/home/indigowave/Desktop/semantic-world1002/four_tensor_model_rollout.py",
+        "size_bytes": 6700,
+        "mtime_utc": "2026-10-14T09:32:32+00:00",
+        "ctime_utc": "2026-10-15T10:25:19.557380+00:00",
+        "sha256": "fed19280c700acf40b14cd06b4ffc0037d996ec43b7b14114fd4379a4250d399"
+      },
+      "four_tensor_train_rollout.py": {
+        "path": "/home/indigowave/Desktop/semantic-world1002/four_tensor_train_rollout.py",
+        "size_bytes": 35898,
+        "mtime_utc": "2026-10-14T10:16:34+00:00",
+        "ctime_utc": "2026-10-15T10:25:19.560965+00:00",
+        "sha256": "853d96e5312340acf87fd73fa93fd4cc45ec7dddfde1a4f35976f3a29f6f1e91"
+      }
+    },
+    "git": {
+      "available": false
+    },
+    "argv": [
+      "four_tensor_train_rollout.py",
+      "--data_dir",
+      "rocstories_T4max_x16",
+      "--output_dir",
+      "rocstories_T4max_x16/output_four_tensor_rollout",
+      "--run_tag",
+      "rocstories_rollout_T3N16_dx64_dt32_H2L2_do0.1_b32_s41",
+      "--d_x",
+      "64",
+      "--d_t",
+      "32",
+      "--n_heads",
+      "2",
+      "--n_layers",
+      "2",
+      "--dropout",
+      "0.1",
+      "--padding_idx",
+      "0",
+      "--epochs",
+      "50",
+      "--batch_size",
+      "32",
+      "--lr",
+      "0.0003",
+      "--optimizer",
+      "adamw",
+      "--num_workers",
+      "2",
+      "--seed",
+      "41",
+      "--deterministic",
+      "true",
+      "--save_checkpoints",
+      "true",
+      "--resume_from_checkpoint",
+      "false",
+      "--stop_at_val_minimum",
+      "true",
+      "--val_minimum_patience",
+      "5",
+      "--val_minimum_ratio",
+      "1.01",
+      "--checkpoint_every",
+      "0"
+    ],
+    "reproducibility": {
+      "software": {
+        "python": "3.12.11",
+        "python_full": "3.12.11 | packaged by conda-forge | (main, Jun  4 2025, 14:45:31) [GCC 13.3.0]",
+        "python_executable": "/home/indigowave/.miniconda3/envs/torch/bin/python",
+        "numpy": "2.3.2",
+        "torch": "2.7.1+cu128",
+        "torch_cuda_built": "12.8",
+        "torch_git_version": "e2d141dbde55c2a4370fac5165b0561b6af4798b",
+        "debug_build": false,
+        "cudnn": 90701,
+        "nccl": [
+          2,
+          26,
+          2
+        ]
+      },
+      "env": {
+        "CUBLAS_WORKSPACE_CONFIG": ":4096:8",
+        "PYTORCH_CUDA_ALLOC_CONF": "expandable_segments:True",
+        "TOKENIZERS_PARALLELISM": "false"
+      },
+      "gpu": {
+        "driver_version": "570.211.01",
+        "nvidia_proc_version": "NVRM version: NVIDIA UNIX x86_64 Kernel Module  570.211.01  Tue Nov 25 16:36:36 UTC 2025\nGCC version:  gcc version 13.3.0 (Ubuntu 13.3.0-6ubuntu2~24.04.1)",
+        "nvidia_smi": [
+          {
+            "index": 0,
+            "name": "NVIDIA GeForce RTX 3080",
+            "uuid": "GPU-1fbc01e1-c223-7c2c-a0ef-d535c35925fe",
+            "driver_version": "570.211.01",
+            "memory_total_mib": 10240,
+            "compute_cap": "8.6"
+          },
+          {
+            "index": 1,
+            "name": "NVIDIA GeForce RTX 3080",
+            "uuid": "GPU-a6156bc5-3223-a257-bf66-6e39045e60b9",
+            "driver_version": "570.211.01",
+            "memory_total_mib": 10240,
+            "compute_cap": "8.6"
+          }
+        ],
+        "cuda_available": true,
+        "device_count": 2,
+        "current_device": 0,
+        "torch_devices": [
+          {
+            "index": 0,
+            "name": "NVIDIA GeForce RTX 3080",
+            "capability": "8.6",
+            "total_memory_bytes": 10364977152,
+            "multi_processor_count": 68
+          },
+          {
+            "index": 1,
+            "name": "NVIDIA GeForce RTX 3080",
+            "capability": "8.6",
+            "total_memory_bytes": 10365239296,
+            "multi_processor_count": 68
+          }
+        ],
+        "cuda_runtime_version": "12.8"
+      },
+      "seed": 41,
+      "deterministic_requested": true,
+      "pythonhashseed": "41",
+      "torch_num_threads": 8,
+      "deterministic_algorithms_enabled": true,
+      "torch_flags": {
+        "cudnn_enabled": true,
+        "cudnn_deterministic": true,
+        "cudnn_benchmark": false,
+        "allow_tf32_matmul": false,
+        "allow_tf32_cudnn": true,
+        "float32_matmul_precision": "highest"
+      }
+    }
+  }
+}

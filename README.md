@@ -12,32 +12,56 @@ This repository contains the model, the training code, and the comparison baseli
 
 We start from one premise: the semantic description of a physical scene is a compressed form of that scene. If so, a world model can advance a scene by evolving its description in discrete steps, instead of interpolating pixels or latents.
 
-Video and world models that tokenize a scene usually flatten it into a single autoregressive sequence. That gives spatially simultaneous content an order it does not have, and leaves time to be recovered from one-dimensional position. Here each moment is compressed into one sentence-like state, time is kept as its own axis, and attention runs over the resulting *(position, time)* grid.
+Video and world models that tokenize a scene usually flatten it into a single autoregressive sequence. That gives spatially simultaneous content an order it does not have, and leaves time to be recovered from one-dimensional position. Here each moment is compressed into one sentence-like state. Two predictors then read that description. The 4-tensor route keeps token position and time as a grid. The baseline flattens the same states into one causal string and generates the next state token by token.
 
 ```mermaid
 flowchart LR
     A["Video frames"] --> B["Image-to-text"]
-    B --> C["Semantic states<br/>S(0), S(1), S(2)"]
-    C --> D["4-tensor attention"]
-    D --> E["Predicted states<br/>Ŝ(1), Ŝ(2), Ŝ(3)"]
-    E --> F["Text-to-image"]
+
+    B -->|4-tensor route| C4["Semantic state grid<br/>S(0), S(1), S(2)"]
+    C4 --> D4["4-tensor attention<br/>joint position-time attention"]
+    D4 --> E4["Predicted states<br/>Ŝ(1), Ŝ(2), Ŝ(3)"]
+
+    B -->|causal baseline| C1["Flattened context<br/>S(0) + S(1) + S(2)"]
+    C1 --> D1["Causal Transformer<br/>free-running generation"]
+    D1 --> E1["Predicted state<br/>Ŝ(3)"]
+
+    E4 --> F["Text-to-image"]
+    E1 --> F
     F --> G["Predicted frames"]
 
     classDef here fill:#e0f2f1,stroke:#00796b,stroke-width:3px,color:#004d40;
     classDef outside stroke-dasharray: 5 5;
-    class D here;
+    class D4,D1 here;
     class A,B,F,G outside;
 ```
 
-**Scope.** This repository implements and tests only the highlighted block. The image-to-text encoder, the text-to-image renderer, and any planner are outside it. To test the update on its own, the experiments run directly at the semantic layer on ROCStories. The one-step run conditions on four sentences and scores the fifth. A second run fixes the window at $T = 3$ and scores $\hat{S}(3)$, then $\hat{S}(4)$ from the model's own previous sentence.
+**Scope.** This repository implements and tests the two highlighted predictors. The image-to-text encoder, the text-to-image renderer, and any planner are outside it. To test the update on its own, the experiments run directly at the semantic layer on ROCStories. The one-step run conditions on four sentences and scores the fifth. A second run fixes the window at $T = 3$ and scores $\hat{S}(3)$, then $\hat{S}(4)$ from the model's own previous sentence. The diagram writes the shorter $T = 3$ window so the shift fits on one line.
 
 ---
 
 ## The model
 
-### A window is a grid of tokens
+### The baseline flattens the window
 
-A window of $T$ states, each padded to $N$ tokens, is a grid with time running down and token position running across:
+The baseline packs the non-padding tokens into one causal sequence and generates the next sentence token by token, feeding each prediction back as the next input. With embedding width $d = d_x d_t$, that sequence is a matrix
+
+$$
+X \in \mathbb{R}^{N T \times d_x d_t}.
+$$
+
+The running example below uses three context sentences. The stored runs use four.
+
+| Sequence segment | Tokens |
+|---|---|
+| Start and context, $S(0)$ | [BOS] [I] [am] [in] [front] [of] [the] [elevator] |
+| Context, $S(1)$ | [I] [am] [looking] [at] [the] [floor] [indicator] |
+| Context, $S(2)$ | [The] [elevator] [arrives] [at] [my] [floor] [EOS]|
+| Generated target, $S(3)$ | [BOS] [The] [elevator] [doors] [open] [in] [front] [of] [me] [EOS] |
+
+### A 4-tensor window is a grid
+
+A window of $T$ states, each padded to $N$ tokens, is a grid with time running down and token position running across. The `[0]` entries are padding.
 
 | | $x=0$ | $1$ | $2$ | $3$ | $4$ | $5$ | $6$ | $7$ |
 |---|---|---|---|---|---|---|---|---|
@@ -89,43 +113,33 @@ $S(1)$ and $S(2)$ are the overlap of $X(2)$ and $X(3)$.
 
 The grid and the table are the paper's running example. The paper uses $T=3$ so the shift is short enough to write out: the input sentences are $0$, $1$, and $2$, and the sentence to predict is $3$. The ROCStories validation experiment uses $T=4$. The model reads sentences $0$, $1$, $2$, and $3$, and the sentence it is scored on is $4$. That is the same shift with one more sentence in the window. The input is $X(3) \leftarrow \{S(0), S(1), S(2), S(3)\}$ and the target is $X(4) \leftarrow \{S(1), S(2), S(3), S(4)\}$. The overlap that updates the 4-tensor parameters is then $S(1)$, $S(2)$, and $S(3)$. The baseline is trained on the causal-masked non-padding concatenation of the whole input, $S(0)$ through $S(3)$. On the validation set the 4-tensor predicts $S(4)$ in one parallel pass, and the baseline free-runs. $S(4)$ is the sentence absent from the input.
 
-In a standard transformer each token is a **vector** of width $d$. Here each cell of the grid holds a **matrix** of shape $d_x \times d_t$: one axis is the *semantic fiber* ($d_x$), the other the *temporal-context fiber* ($d_t$). The whole window is therefore a rank-4 tensor
+Each cell of that grid holds a **matrix** of shape $d_x \times d_t$: one axis is the *semantic fiber* ($d_x$), the other the *temporal-context fiber* ($d_t$). The whole window is a rank-4 tensor
 
 $$
 X \in \mathbb{R}^{N \times d_x \times T \times d_t}.
 $$
 
-### Every index of attention is doubled
+### The same projection, with split indices
+
+A position on the baseline sequence is one index $I$. On the grid it is the pair $I = (x, t)$. A feature index of width $d = d_x d_t$ splits into $(n, q)$. The output feature splits the same way into $(m, p)$.
 
 | | Standard attention | 4-tensor attention |
 |---|---|---|
-| Position | $i$ | $(x,\, t)$ |
-| Feature index | one index, width $d$ | $(n,\, q)$, widths $d_x$ and $d_t$ |
-| Token representation | vector in $\mathbb{R}^{d}$ | matrix in $\mathbb{R}^{d_x \times d_t}$ |
-| Projection | $W \in \mathbb{R}^{d \times d}$ | $W_{mn,pq} \in \mathbb{R}^{d_x \times d_x \times d_t \times d_t}$ |
-| Score | $E_{ij}$ | $E_{xt,\,x't'}$ |
-| Softmax runs over | keys $j$ | the key grid $(x',\, t')$ |
-| Output | $y_i$ | $y_{xm;tp}$ |
-
-With that table, the equations read exactly like ordinary attention.
-
-**Projections** contract both input fibers at once:
+| Position | $I$ | $I = (x,\, t)$ |
+| Feature index | $i$, width $d$ | $(n,\, q)$, widths $d_x$ and $d_t$ |
+| Projection | $W_{ij} \in \mathbb{R}^{d \times d}$ | $W_{mp;\,nq} \in \mathbb{R}^{d_x \times d_t \times d_x \times d_t}$ |
+| Query | $Q_{iI} = \sum_j W_{ij}\, X_{jI}$ | $Q_{mp,\,I} = \sum_{n,q} W_{mp;\,nq}\, X_{nq,\,I}$ |
 
 $$
-Q_{xm;tp} = \sum_{n,q} W^Q_{mn,pq}\, X_{xn;tq}, \qquad
-K_{xm;tp} = \sum_{n,q} W^K_{mn,pq}\, X_{xn;tq}, \qquad
-V_{xm;tp} = \sum_{n,q} W^V_{mn,pq}\, X_{xn;tq}.
+i \;\leftrightarrow\; (m,\,p) \quad \text{(output)}, \qquad j \;\leftrightarrow\; (n,\,q) \quad \text{(input)}.
 $$
 
-**Scores** contract both output fibers:
+$X_{nq,\,I}$ is the $d_x \times d_t$ matrix in grid cell $I$. With no further constraint, $W_{mp;\,nq}$ is the ordinary $d \times d$ map written with each index split. The product is the same product. Four indices can then be paired in more than one way.
+
+**Scores** contract the output fibers, and the softmax runs over the key grid. Only padding keys are masked. There is no temporal causal mask.
 
 $$
-E_{xt,\,x't'} = \frac{1}{\sqrt{d_x d_t}} \sum_{m,p} Q_{xm;tp}\, K_{x'm;t'p}.
-$$
-
-**Joint softmax** normalizes over the whole window at once, so any token of any state can be attended to:
-
-$$
+E_{xt,\,x't'} = \frac{1}{\sqrt{d_x d_t}} \sum_{m,p} Q_{xm;tp}\, K_{x'm;t'p}, \qquad
 A_{xt,\,x't'} = \frac{\exp E_{xt,\,x't'}}{\sum_{x'',t''} \exp E_{xt,\,x''t''}}.
 $$
 
@@ -135,7 +149,53 @@ $$
 y_{xm;tp} = \sum_{x',t'} A_{xt,\,x't'}\, V_{x'm;t'p}.
 $$
 
-Only padding keys are masked. There is no temporal causal mask.
+### One tensor, three groupings
+
+The entries of $W_{mp;\,nq}$ can be read as a matrix in three ways. The Frobenius norm is the same. What changes is which indices form the rows and which form the columns.
+
+| Grouping | Rows × columns | What is paired |
+|---|---|---|
+| $(mp)(nq)$ | $d \times d$ | output pair with input pair, the contraction above |
+| $(mn)(pq)$ | $d_x^2 \times d_t^2$ | semantic indices together, temporal indices together |
+| $(mq)(np)$ | $d \times d$ | each fiber with the other |
+
+A grouping is informative when $W$ is low rank in it. Each grouping has its own singular-value decomposition, so the same tensor has three sum-of-products forms:
+
+$$
+W_{mp;\,nq}
+\;=\; \sum_{r} A^{0,r}_{mp}\, B^{0,r}_{nq}
+\;=\; \sum_{r} A^{1,r}_{mn}\, B^{1,r}_{pq}
+\;=\; \sum_{r} A^{2,r}_{mq}\, B^{2,r}_{np}.
+$$
+
+Applied to one grid cell $X_I$, one rank-1 term does a different job in each form.
+
+| Form | One term on $X_I$ | Semantic input $n$ goes to | Temporal input $q$ goes to |
+|---|---|---|---|
+| $(mp)(nq)$ | $A^{0}\,\langle B^{0},\, X_I \rangle$ | both outputs, through one scalar | both outputs, through one scalar |
+| $(mn)(pq)$ | $A^{1}\, X_I\, B^{1\top}$ | semantic output $m$ | temporal output $p$ |
+| $(mq)(np)$ | $A^{2}\, X_I^{\top}\, B^{2}$ | temporal output $p$ | semantic output $m$ |
+
+With every term kept, the three sums are the same $W$. With few terms, $(mn)(pq)$ keeps the two fibers on their own axes, $(mq)(np)$ crosses them, and $(mp)(nq)$ contracts them to a scalar.
+
+### Concentration, and the shadow
+
+For a learned update $\Delta W$, let $\sigma_1 \ge \cdots \ge \sigma_r$ be the singular values of one grouping and let $r$ be that grouping's rank cap: $2048$ for the two square groupings and $1024$ for $(mn)(pq)$. The energy in the first $k$ singular values, and the same quantity rescaled so a flat spectrum is $0$ and a rank-$k$ spectrum is $1$, are
+
+$$
+C(k) = \frac{\sum_{i=1}^{k} \sigma_i^2}{\sum_{j=1}^{r} \sigma_j^2}, \qquad
+\varphi_k = \frac{C(k) - k/r}{1 - k/r}.
+$$
+
+The tables below use $k = 32$. Then $k/r = 0.0156$ on a $2048 \times 2048$ grouping and $k/r = 0.0313$ on the $4096 \times 1024$ grouping. An i.i.d. normal matrix of the same shape already has $\varphi_{32} \approx 0.043$ and $0.036$ respectively, because ordered singular values put a little extra mass in the first components.
+
+The shadow keeps the learned $(mp)(nq)$ singular values and replaces both singular-vector bases by a random orthogonal draw. That matrix is rearranged into the two fiber groupings, and $\varphi_k^{\mathrm{shadow}}$ is their concentration. It is the concentration that the $(mp)(nq)$ spectrum would produce with no fiber alignment. The excess is
+
+$$
+\alpha_k = \varphi_k - \varphi_k^{\mathrm{shadow}}.
+$$
+
+On $(mp)(nq)$ the singular values are unchanged, so $\alpha_k = 0$ there by definition. $\alpha_k > 0$ on a fiber grouping means that grouping is more concentrated than the shadow. A fully separable term $a_m b_p c_n d_q$ is rank-1 in all three groupings, so it raises $(mn)(pq)$ and $(mq)(np)$ together. Both fiber values rising at once therefore does not by itself identify a swap. The reported cells are medians over heads and seeds. Each shadow is one random draw.
 
 ### Where information enters
 
@@ -155,6 +215,8 @@ $$
 
 The logits at slice $t$ predict sentence $S(t+1)$, all $N$ tokens in one parallel pass.
 
+From layer 1 onward, a reinjection run adds the same $P$ and $T^{\mathrm{emb}}$ again, after Pre-LN, and builds only $Q$ and $K$ from that sum. $V$ and the residual keep the LayerNorm output. Layer 0 still sees position only through the input formula above. The baseline reinjection run does the analogous thing with its sinusoidal position vector, scaled so its mean energy matches the mean Frobenius energy of the 4-tensor position term.
+
 ### One layer
 
 Pre-LN, with LayerNorm over the flattened $d_x d_t$ fiber at each $(x, t)$:
@@ -168,7 +230,7 @@ Each head keeps the full $(d_x, d_t)$ fiber, and heads are summed with no $1/\sq
 
 ### Where the structure acts
 
-The projection $W_{mn,pq}$ is a general bilinear map on the joint $(n,q)$ space, so the two fibers may mix inside attention. The 4-tensor structure acts at the boundaries of the representation. A token enters as the tensor product $e_{\mathrm{sem}} \otimes e_{\mathrm{temp}}$ of a semantic vector and a temporal-context vector. Spatial position is written only on the $d_x$ fiber and temporal position only on the $d_t$ fiber. The readout is rank-1 in $(n,q)$ for each vocabulary item, with the semantic factor tied to the input dictionary. Attention then runs over the full $(x,t)$ grid, and the next state is read out for every position in parallel.
+$W_{mp;\,nq}$ may mix the two fibers inside the contraction. The 4-tensor structure is enforced at the boundaries. A token enters as the outer product of a semantic vector and a temporal-context vector. Position $x$ is written on the $d_x$ fiber and phase $x+t$ on the $d_t$ fiber. The readout is rank-1 in $(n,q)$ for each vocabulary item, with the semantic factor tied to the input dictionary. Attention then runs over the full $(x,t)$ grid, and the next state is read out for every position in parallel.
 
 ---
 
@@ -234,6 +296,36 @@ The figures are the closest parameter match, $H = 4$, $L = 2$, seeds 41, 42, and
 
 Caveats: the checkpoint is selected on the same validation split that is reported. The $\pm$ values are the sample standard deviation over seeds 41, 42, and 43.
 
+### Layer-1 QK reinjection, $H = 2$, $L = 2$
+
+The runs above add $P$ and $T^{\mathrm{emb}}$ only when the input tensor is built. The reinjection runs keep that input and, from layer 1, add the same position again to $Q$ and $K$ only. The table is $\alpha_{32}$ on $\Delta W$ at the selected checkpoint. Each cell is $(mn)(pq)$ / $(mq)(np)$, the median over two heads and seeds 41, 42, and 43.
+
+| Condition | Layer | Q | K | V |
+|---|---:|---:|---:|---:|
+| Input position only | 0 | $+0.247$ / $+0.225$ | $+0.239$ / $+0.215$ | $+0.134$ / $+0.017$ |
+| Input position only | 1 | $+0.014$ / $+0.015$ | $+0.006$ / $+0.006$ | $+0.022$ / $+0.012$ |
+| Layer-1 QK reinjection | 0 | $+0.270$ / $+0.253$ | $+0.245$ / $+0.229$ | $+0.144$ / $+0.022$ |
+| Layer-1 QK reinjection | 1 | $+0.459$ / $+0.457$ | $+0.186$ / $+0.191$ | $+0.025$ / $+0.017$ |
+
+Layer 0 stays in the same range either way. At layer 1, $Q$ and $K$ go from fiber excesses near $+0.01$ to $+0.46$ and $+0.19$. $V$, which does not receive the added position, stays near $+0.02$. On both fiber groupings the rise is joint, which is what a separable term does, so the table shows that the injected coordinates remain visible in $\Delta W$. It does not separate a within-fiber map from a swap.
+
+The same checkpoints, scored as non-pad $S(4)$ cross-entropy:
+
+| Model | Input position only | Layer-1 QK reinjection | Paired change |
+|---|---:|---:|---:|
+| 4-tensor | $5.580 \pm 0.017$ | $5.573 \pm 0.035$ | $-0.007 \pm 0.028$ |
+| Baseline | $5.868 \pm 0.157$ | $5.953 \pm 0.021$ | $+0.085 \pm 0.175$ |
+
+The paired change is reinjection minus input-only on the same seed. The 4-tensor change is inside the seed scatter. Against the reinjected baseline the gap $\mathcal{L}^{\mathrm{AR}}_{S(4)} - \mathcal{L}^{\mathrm{4T}}_{S(4)}$ is $0.400$, $0.365$, and $0.375$, mean $0.380 \pm 0.018$. Token accuracy at those 4-tensor checkpoints is $17.5\%$, $15.8\%$, and $17.2\%$; the baseline reinjection accuracies are $11.1\%$, $9.0\%$, and $6.4\%$.
+
+| seed | Epoch (4T / AR) | $\mathcal{L}_{S(4)}$ (4T / AR) | Token acc. % (4T / AR) | $\Delta$ |
+|---:|---:|---:|---:|---:|
+| 41 | 6/11 / 28/33 | 5.544 / 5.944 | 17.5 / 11.1 | 0.400 |
+| 42 | 9/14 / 42/47 | 5.612 / 5.977 | 15.8 / 9.0 | 0.365 |
+| 43 | 4/10 / 29/34 | 5.562 / 5.938 | 17.2 / 6.4 | 0.375 |
+
+Epoch is selected/last. $\Delta$ is the baseline reinjection cross-entropy minus the 4-tensor reinjection cross-entropy.
+
 ### Rollout of $S(3)$ and $S(4)$
 
 The same five-sentence records are trained at window length $T = 3$. $S(4)$ is not a training target. The 4-tensor model reads $\{S(0), S(1), S(2)\}$ and is scored on $\{S(1), S(2), S(3)\}$ during training. At evaluation the first forward scores $\hat{S}(3)$ against $S(3)$, and the second reads $\{S(1), S(2), \hat{S}(3)\}$ and scores $\hat{S}(4)$ against $S(4)$. The baseline trains by free-running from `[BOS]` plus $S(0), S(1), S(2)$ onto $S(3)$ and `[EOS]`, then evaluates $\hat{S}(3)$ and $\hat{S}(4)$ with `[EOS]` removed from the denominator. The checkpoint is the minimum of that selection loss. The table is the two rollout scores at that checkpoint.
@@ -274,13 +366,21 @@ On every shared epoch the 4-tensor curve lies below the paired baseline. The ope
 ```
 four_tensor_model.py              input construction, rank-4 heads, Pre-LN layer, tied readout
 four_tensor_train.py              training loop and checkpoint selection for the 4-tensor model
+four_tensor_model_qk_reinject.py  layer-1 Q and K position reinjection, 4-tensor
+four_tensor_train_qk_reinject.py  training entry for that 4-tensor variant
 baseline_ar_attention_model.py    free-running 1-D baseline
 baseline_ar_attention_train.py    training loop for the baseline
+baseline_ar_attention_model_qk_reinject.py
+                                  layer-1 Q and K position reinjection, baseline
+baseline_ar_attention_train_qk_reinject.py
+                                  training entry for that baseline variant
 data_rocstories.py                ROCStories CSVs to a token-window pool
 four_tensor_readme.md             construction notes for the 4-tensor pipeline
 baseline_ar_attention_readme.md   construction notes for the free-running baseline
 export_dynamics.py                epoch logs to the curves in docs/ and figures/dynamics/
 run_rocstories_train.sh           launcher; the training knobs live in this file
+run_rocstories_train_qk_reinject.sh
+                                  one (H, L, seed): 4-tensor reinjection, then baseline
 docs/h4l2_s4_ce.svg               validation S(4) curves for H=4, L=2, seeds 41--43
 docs/h4l2_train_ce.svg            training CE for H=4, L=2, one axis per model
 docs/h4l2_val_ce.svg              validation CE for H=4, L=2, one axis per model
@@ -298,6 +398,8 @@ rocstories_T4max_x16/
     psf_pool_T4_N16.meta.json
     output_four_tensor_preLN/     epoch logs (.json, .jsonl, .log)
     output_baseline_ar_attention_preLN/
+    output_four_tensor_qk_reinject/   reinjection logs; reported rows are H2 L2, seeds 41--43
+    output_baseline_ar_attention_qk_reinject/
     output_four_tensor_rollout/    T=3 rollout logs
     output_baseline_ar_attention_rollout/
 ```
@@ -320,7 +422,7 @@ The token pool for the reported runs is already written as `rocstories_T4max_x16
 python data_rocstories.py --data_dir rocstories --T 4 --max_x 16 --out_dir rocstories_T4max_x16
 ```
 
-Sentences longer than 16 tokens are truncated, and shorter ones are padded with index 0. The loader in this tree is `data_rocstories.py`. `run_rocstories_train.sh` reuses `rocstories_T4max_x16` when those three pool files are already present. When they are absent it calls `four_tensor_data_rocstories.py`, so rebuild the pool with the command above before using the shell script on an empty data directory. The knobs currently set in the shell script are $H=2$, $L=2$, seed 43.
+Sentences longer than 16 tokens are truncated, and shorter ones are padded with index 0. The loader in this tree is `data_rocstories.py`. `run_rocstories_train.sh` reuses `rocstories_T4max_x16` when those three pool files are already present. When they are absent it calls `four_tensor_data_rocstories.py`, so rebuild the pool with the command above before using the shell script on an empty data directory. The knobs currently set in `run_rocstories_train.sh` are $H=2$, $L=2$, seed 43. `run_rocstories_train_qk_reinject.sh` runs the 4-tensor reinjection and then the baseline for one $(H, L, \mathrm{seed})$. The reinjection numbers in this file are $H=2$, $L=2$, seeds 41, 42, and 43.
 
 The commands below reproduce one run of the closest parameter match, $H=4$, $L=2$, seed 43, with an epoch budget of 50. Seeds 41 and 42 of $H=2$, $L=2$ and of $H=4$, $L=2$ use the same flags with an epoch budget of 100. Every $H=4$, $L=3$ run uses a budget of 100; the baseline seed 42 stopped at epoch 35. If DataLoader workers fail to start, set `--num_workers 0`.
 
